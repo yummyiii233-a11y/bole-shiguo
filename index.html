@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="伯乐识果——高校科技成果潜力评估与转化路径推荐智能体" />
+  <title>伯乐识果 · 智能评估台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <section class="landing-home" aria-label="伯乐识果首页">
+    <nav class="landing-nav">
+      <a class="landing-brand" href="#top"><span class="landing-mark">伯</span><strong>伯乐识果</strong></a>
+      <div class="landing-links"><a href="#features">能力</a><a href="#workflow">工作流</a><a href="#about">关于平台</a></div>
+      <div class="landing-actions"><a class="landing-signin" href="#workspace">登录</a><a class="landing-cta" href="#workspace">开始评估 <span>→</span></a></div>
+    </nav>
+    <main class="landing-hero" id="top">
+      <div class="landing-orb landing-orb-a"></div><div class="landing-orb landing-orb-b"></div>
+      <div class="landing-release"><i></i> v1.0 — 让科技成果找到下一站 <span>›</span></div>
+      <h1>让每一项成果<br><em>被看见、被转化</em></h1>
+      <p>伯乐识果连接高校专利、技术价值与产业需求，<br>用 AI 帮助你更快发现高潜力成果，选择更合适的转化路径。</p>
+      <div class="landing-buttons"><a class="landing-primary" href="#workspace">开始智能评估 <span>→</span></a><a class="landing-secondary" href="#features"><span>▷</span> 了解平台</a></div>
+      <div class="landing-proof"><span>✦</span> 面向高校技术转移与成果管理团队设计</div>
+    </main>
+    <section class="landing-strip" id="features"><div><b>01</b><strong>识别潜力</strong><span>从技术、法律、市场与转化表现综合评估</span></div><div><b>02</b><strong>解释评分</strong><span>每一个结论都有数据依据与可追溯逻辑</span></div><div><b>03</b><strong>推荐路径</strong><span>匹配许可、转让或联合开发等行动方案</span></div></section>
+  </section>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><span>伯</span></div>
+        <div><strong>伯乐识果</strong><small>科技成果转化智能体</small></div>
+      </div>
+      <nav>
+        <button class="nav-item active" data-page="workspace"><span>⌁</span>智能评估</button>
+        <button class="nav-item" data-page="library"><span>⌕</span>成果库</button>
+        <button class="nav-item" data-page="records"><span>▤</span>评估记录</button>
+        <button class="nav-item" data-page="routes"><span>↗</span>转化推荐</button>
+        <button class="nav-item" data-page="reports"><span>□</span>报告中心</button>
+      </nav>
+      <div class="sidebar-card">
+        <div class="spark">✦</div>
+        <strong>今日评估额度</strong>
+        <p>已使用 3 / 20 次</p>
+        <div class="progress"><i style="width:15%"></i></div>
+      </div>
+      <div class="profile"><div class="avatar">研</div><div><strong>研究团队</strong><small>大赛演示空间</small></div><span>⋯</span></div>
+    </aside>
+
+    <main>
+      <header>
+        <button class="mobile-menu" aria-label="打开菜单">☰</button>
+        <div><span id="headerBreadcrumb" class="breadcrumb">智能评估 / 新建评估</span><h1 id="headerTitle">高校科技成果智能评估</h1></div>
+        <div class="header-actions"><button class="icon-btn">?</button><button class="icon-btn">♢</button><button class="primary small">＋ 新建评估</button></div>
+      </header>
+
+      <section id="workspace" class="page active-page">
+        <div class="intro-row">
+          <div><div class="eyebrow"><span></span> BOLESHIGUO AI</div><h2>发现值得被看见的科技成果</h2><p>输入专利号或上传成果资料，智能体将综合技术、法律、市场与转化表现，生成可解释的潜力评估与行动建议。</p></div>
+          <div class="trust-chip"><span>✓</span><div><strong>评估依据可追溯</strong><small>数据来源与评分逻辑透明展示</small></div></div>
+        </div>
+
+        <div class="search-card">
+          <div class="search-tabs"><button class="active">专利号检索</button><button>上传成果文件</button><span>支持 PDF / Word / Excel</span></div>
+          <div class="search-box"><span>⌕</span><input id="patentInput" value="CN-109444944-B" list="patentSuggestions" placeholder="输入专利公开号、成果名称或高校名称"/><datalist id="patentSuggestions"></datalist><button id="evaluateBtn">开始智能评估 <b>→</b></button></div>
+          <div class="examples"><span>可试：</span><button>CN-109444944-B</button><button>硅基光电探测器</button><button>厦门大学</button><small id="catalogCount">正在载入演示成果库…</small></div>
+        </div>
+
+        <div id="searchError" class="search-error hidden" role="alert"></div>
+
+        <div id="analysisState" class="analysis-state hidden">
+          <div class="scanner"></div><div><strong>正在构建成果画像…</strong><span id="analysisText">读取专利基本信息与法律状态</span></div><span id="analysisPct">18%</span>
+        </div>
+
+        <div id="resultSection" class="results">
+          <div class="result-head">
+            <div><div class="tag-row"><span id="statusTag" class="tag success">已授权 · 有效</span><span id="kindTag" class="tag">发明专利</span><span id="fieldTag" class="tag">技术领域</span></div><h3 id="patentTitle">请选择演示专利</h3><p id="patentMeta">正在载入专利数据…</p></div>
+            <div class="result-actions"><button>☆ 收藏</button><button>⇩ 导出报告</button></div>
+          </div>
+
+          <div class="dashboard-grid">
+            <article class="score-card panel">
+              <div class="panel-title"><div><span class="dot blue"></span>综合转化潜力</div><span class="ai-badge">AI 评估</span></div>
+              <div class="score-content"><div class="score-ring"><svg viewBox="0 0 120 120"><circle class="ring-bg" cx="60" cy="60" r="52"/><circle id="scoreRing" class="ring-value" cx="60" cy="60" r="52"/></svg><div><strong id="totalScore">--</strong><span>/ 100</span></div></div><div class="score-copy"><span id="scoreLabel" class="level">等待评估</span><p id="scoreSummary">评分由技术潜力、法律稳定性、市场适配度和转化环境共同构成。</p><small>结果置信度 <b id="confidenceValue">--</b> · <span id="ruleVersion">--</span></small></div></div>
+            </article>
+
+            <article class="route-card panel">
+              <div class="panel-title"><div><span class="dot green"></span>首选转化路径</div><button>查看完整方案 →</button></div>
+              <div class="route-main"><div class="route-icon">↗</div><div><span>推荐路径</span><strong id="primaryRoute">等待生成</strong><p id="primaryRouteReason">完成评估后，将根据评分证据生成路径建议。</p></div><div class="match"><strong id="routeCount">--</strong><span>候选路径</span></div></div>
+            </article>
+
+            <article class="dimensions panel">
+              <div class="panel-title"><div><span class="dot purple"></span>四维评分拆解</div><span class="muted">点击维度查看依据</span></div>
+              <div id="dimensionList" class="dimension-list"></div>
+              <div id="evidencePanel" class="evidence-panel"><strong>评分证据</strong><p>点击任一维度查看具体规则与数据依据。</p></div>
+            </article>
+
+            <article class="agent-panel panel">
+              <div class="agent-head"><div class="agent-avatar">伯</div><div><strong>伯乐识果智能体</strong><span><i></i>分析已完成</span></div><button>···</button></div>
+              <div class="agent-message"><p id="agentSummary">请选择一项成果，智能体将基于数据库证据生成可解释建议。</p><ol id="agentActions"></ol></div>
+              <div class="chat-input"><input placeholder="继续追问：这项成果适合哪些企业？"/><button>↑</button></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="library" class="page library-page">
+        <div class="library-hero">
+          <div><div class="eyebrow"><span></span> ACHIEVEMENT LIBRARY</div><h2>高校科技成果库</h2><p>浏览已完成评估的真实专利，按高校、技术领域与转化准备度筛选，并进行横向比较。</p></div>
+          <div class="library-stats"><div><strong id="libraryTotal">5</strong><span>成果总数</span></div><div><strong id="highPotentialCount">3</strong><span>高准备度</span></div><div><strong id="universityCount">4</strong><span>覆盖高校</span></div></div>
+        </div>
+
+        <div class="library-toolbar panel">
+          <label class="library-search"><span>⌕</span><input id="librarySearch" placeholder="搜索专利名称、公开号或高校" /></label>
+          <select id="universityFilter" aria-label="按高校筛选"><option value="all">全部高校</option></select>
+          <select id="fieldFilter" aria-label="按领域筛选"><option value="all">全部领域</option></select>
+          <select id="levelFilter" aria-label="按准备度筛选"><option value="all">全部准备度</option><option value="高准备度">高准备度</option><option value="较高准备度">较高准备度</option></select>
+          <select id="sortFilter" aria-label="排序"><option value="score-desc">得分从高到低</option><option value="score-asc">得分从低到高</option><option value="date-desc">授权日期最新</option></select>
+        </div>
+
+        <div class="library-summary"><span id="libraryResultCount">显示 5 项成果</span><small>勾选 2—3 项成果可进行横向比较</small></div>
+        <div id="patentGrid" class="patent-grid"></div>
+
+        <div id="compareTray" class="compare-tray hidden">
+          <div><strong>成果比较</strong><span id="compareNames">已选择 0 项</span></div>
+          <button id="clearCompare" class="ghost-btn">清空</button>
+          <button id="openCompare" class="primary" disabled>开始比较</button>
+        </div>
+      </section>
+
+      <section id="records" class="page records-page">
+        <div class="records-hero">
+          <div><div class="eyebrow"><span></span> EVALUATION HISTORY</div><h2>评估记录</h2><p>集中查看智能体已完成的成果评估，快速回溯评分依据与转化建议。</p></div>
+          <button class="primary" id="recordsNewEvaluation">＋ 发起新评估</button>
+        </div>
+        <div class="record-stats">
+          <article class="panel"><span>已完成评估</span><strong id="recordTotal">5</strong><small>全部已生成可解释结果</small></article>
+          <article class="panel"><span>平均准备度得分</span><strong id="recordAverage">82.7</strong><small>演示样本平均值</small></article>
+          <article class="panel"><span>高准备度成果</span><strong id="recordHighCount">3</strong><small>建议优先进入企业验证</small></article>
+          <article class="panel"><span>当前规则版本</span><strong class="rule-stat">v0.1</strong><small>评分口径可追溯</small></article>
+        </div>
+        <div class="records-toolbar panel">
+          <label><span>⌕</span><input id="recordSearch" placeholder="搜索成果名称、公开号或高校" /></label>
+          <select id="recordLevelFilter" aria-label="筛选评估等级"><option value="all">全部评估等级</option><option value="高准备度">高准备度</option><option value="较高准备度">较高准备度</option></select>
+          <select id="recordSort" aria-label="评估记录排序"><option value="time-desc">最近评估</option><option value="score-desc">得分从高到低</option><option value="score-asc">得分从低到高</option></select>
+        </div>
+        <div class="records-table panel">
+          <div class="record-row record-heading"><span>成果信息</span><span>评估时间</span><span>综合得分</span><span>置信度</span><span>首选路径</span><span>操作</span></div>
+          <div id="recordList"></div>
+        </div>
+      </section>
+
+      <section id="routes" class="page routes-page">
+        <div class="routes-hero">
+          <div><div class="eyebrow"><span></span> TRANSFER STRATEGY</div><h2>转化路径推荐</h2><p>汇总智能体生成的候选路径，帮助 TTO 判断下一步优先行动。</p></div>
+          <div class="route-hero-badge"><span>✦</span><div><strong>建议由人机协同决策</strong><small>推荐用于初筛，最终方案需结合专家与企业反馈</small></div></div>
+        </div>
+        <div class="route-stats">
+          <article class="panel"><span>候选路径总数</span><strong id="routeTotalStat">12</strong><small>覆盖全部演示成果</small></article>
+          <article class="panel"><span>路径类型</span><strong id="routeTypeStat">5</strong><small>许可、对接与持续培育</small></article>
+          <article class="panel"><span>优先进入验证</span><strong id="routeVerifyStat">2</strong><small>首选“许可＋联合验证”</small></article>
+          <article class="panel"><span>建议二次转化</span><strong id="routeReuseStat">3</strong><small>已检出历史转化事件</small></article>
+        </div>
+        <div class="route-layout">
+          <aside class="route-filter panel">
+            <div class="panel-title"><div><span class="dot purple"></span>筛选路径</div></div>
+            <label><span>成果关键词</span><input id="routeSearch" placeholder="名称、公开号或高校" /></label>
+            <label><span>所属高校</span><select id="routeUniversity"><option value="all">全部高校</option></select></label>
+            <label><span>路径类型</span><select id="routeType"><option value="all">全部路径</option></select></label>
+            <label><span>建议优先级</span><select id="routePriority"><option value="all">全部优先级</option><option value="1">首选路径</option><option value="2">第二路径</option><option value="3">第三路径</option></select></label>
+            <button id="resetRouteFilters" class="ghost-btn">重置筛选</button>
+            <div class="route-filter-note"><strong>口径说明</strong><p>推荐基于当前专利、法律状态、分类信息和高校转化表现生成，不等同于商业尽调结论。</p></div>
+          </aside>
+          <div class="route-content">
+            <div class="route-content-head"><div><strong id="routeResultCount">12 条建议</strong><span>按专利综合得分排序</span></div><div class="route-legend"><span><i class="rank-one"></i>首选</span><span><i></i>备选</span></div></div>
+            <div id="routeList" class="route-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="reports" class="page reports-page">
+        <div class="reports-hero">
+          <div><div class="eyebrow"><span></span> REPORT CENTER</div><h2>报告中心</h2><p>把一次评估整理成可汇报、可复核的成果转化决策摘要。</p></div>
+          <div class="report-privacy"><span>✓</span><div><strong>数据来源透明</strong><small>报告标注规则版本与证据边界</small></div></div>
+        </div>
+        <div class="report-layout">
+          <aside class="report-list panel"><div class="panel-title"><div><span class="dot blue"></span>最近报告</div><span id="reportCount">5 份</span></div><div id="reportItems"></div></aside>
+          <article class="report-preview panel">
+            <div class="report-preview-head"><div><span class="report-kicker">ASSESSMENT BRIEF · <span id="reportVersion">readiness-v0.1</span></span><h2 id="reportTitle">水中氚的快速自动分析方法及装置</h2><p id="reportSubtitle">清华大学 · CN-109444944-B</p></div><button id="downloadReport" class="primary small">⇩ 下载摘要</button></div>
+            <div class="report-score-strip"><div><span>综合转化潜力</span><strong id="reportScore">93.6</strong><small>/ 100</small></div><div><span>评估等级</span><b id="reportLevel" class="tag success">高准备度</b></div><div><span>结果置信度</span><strong id="reportConfidence">70%</strong></div><div><span>首选路径</span><b id="reportRoute">许可＋联合验证</b></div></div>
+            <div class="report-section"><div class="report-section-title"><span>01</span><h3>成果概览</h3></div><div class="report-facts" id="reportFacts"></div></div>
+            <div class="report-section"><div class="report-section-title"><span>02</span><h3>四维评分摘要</h3><small>点击“查看评估”可回到详细证据页</small></div><div id="reportDimensions" class="report-dimensions"></div></div>
+            <div class="report-section"><div class="report-section-title"><span>03</span><h3>行动建议</h3></div><div id="reportActions" class="report-actions-list"></div></div>
+            <div class="report-disclaimer"><span>i</span><p>本报告基于当前演示数据库与 readiness-v0.1 规则生成。市场适配度包含代理指标，建议在企业对接前补充需求规模、竞品、成本与技术成熟度材料。</p></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="placeholder" class="page placeholder-page"><div class="empty-icon">◫</div><h2 id="placeholderTitle">功能建设中</h2><p>第一版原型先聚焦智能评估主流程，后续将连接真实专利数据库。</p><button class="primary" data-back>返回智能评估</button></section>
+    </main>
+  </div>
+  <div id="compareModal" class="compare-modal hidden" role="dialog" aria-modal="true" aria-labelledby="compareTitle">
+    <div class="compare-dialog">
+      <div class="compare-head"><div><span>横向对比</span><h2 id="compareTitle">科技成果比较</h2></div><button id="closeCompare" aria-label="关闭比较">×</button></div>
+      <div id="compareTable" class="compare-table"></div>
+    </div>
+  </div>
+  <script src="catalog-data.js?v=20261016-6"></script>
+  <script src="app.js?v=20261016-6"></script>
+</body>
+</html>
