@@ -23,11 +23,44 @@ const ipcFields = {A:'生活需要',B:'作业与运输',C:'化学与冶金',D:'�
 let catalog = [];
 const selectedForCompare = new Set();
 
-document.querySelectorAll('.landing-home a[href="#workspace"]').forEach(link=>link.addEventListener('click',e=>{
-  e.preventDefault();
+function openHomePage(page){
   document.querySelector('.landing-home').style.display='none';
   document.querySelector('.app-shell').classList.add('opened');
-  workspace.scrollIntoView({behavior:'smooth'});
+  document.querySelector(`.nav-item[data-page="${page}"]`).click();
+  window.scrollTo({top:0,behavior:'instant'});
+}
+document.querySelectorAll('[data-open-page]').forEach(link=>link.addEventListener('click',event=>{
+  event.preventDefault();
+  openHomePage(link.dataset.openPage);
+}));
+document.getElementById('returnHome').addEventListener('click',()=>{
+  document.querySelector('.landing-home').style.display='';
+  document.querySelector('.app-shell').classList.remove('opened');
+  document.querySelector('.sidebar').classList.remove('open');
+  window.scrollTo({top:0,behavior:'instant'});
+});
+const homeMenu=document.querySelector('.home-menu');
+homeMenu.addEventListener('click',()=>{
+  const expanded=homeMenu.getAttribute('aria-expanded')!=='true';
+  homeMenu.setAttribute('aria-expanded',String(expanded));
+  document.getElementById('homeNavigation').classList.toggle('is-open',expanded);
+});
+document.querySelectorAll('.landing-nav a').forEach(link=>link.addEventListener('click',()=>{
+  homeMenu.setAttribute('aria-expanded','false');
+  document.getElementById('homeNavigation').classList.remove('is-open');
+}));
+function evaluateFromHome(query){
+  input.value=query;
+  openHomePage('workspace');
+  runEvaluation();
+}
+document.getElementById('homeSearch').addEventListener('submit',event=>{
+  event.preventDefault();
+  evaluateFromHome(document.getElementById('homePatentInput').value.trim());
+});
+document.querySelectorAll('[data-home-query]').forEach(button=>button.addEventListener('click',()=>{
+  document.getElementById('homePatentInput').value=button.dataset.homeQuery;
+  evaluateFromHome(button.dataset.homeQuery);
 }));
 
 document.querySelectorAll('.search-card,.panel,.results').forEach(card=>card.addEventListener('pointermove',e=>{
@@ -40,6 +73,7 @@ navItems.forEach(btn=>btn.addEventListener('click',()=>{
   navItems.forEach(x=>x.classList.remove('active'));
   btn.classList.add('active');
   const page=btn.dataset.page;
+  document.querySelectorAll('.app-shell .page').forEach(section=>section.classList.remove('active-page'));
   if(page==='workspace'){
     workspace.classList.add('active-page');
     libraryPage.classList.remove('active-page');
