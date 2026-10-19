@@ -44,3 +44,21 @@
 @media(min-width:1500px){.landing-hero{padding-top:clamp(70px,13vh,170px)}}
 @media(max-width:760px){.landing-hero{padding-top:clamp(60px,12vh,120px)}.home-media{border-radius:0}.earth-image{object-position:58% center}.home-media:after{background:linear-gradient(180deg,#0009 0%,#0007 45%,#0001 100%)}.landing-hero>p{color:#c4c4c4}.home-examples,.home-examples button{color:#b0b0b0}}
 @media(prefers-reduced-motion:reduce){.landing-home *{scroll-behavior:auto!important;transition:none!important}}
+
+/* Single-page application shell: keep the hero navigation and switch content in place. */
+body.inner-view{min-height:100vh;background:#050505;color:#fafafa}
+body.inner-view:before{background:linear-gradient(180deg,rgba(0,0,0,.82),rgba(0,0,0,.88)),url('earth-night.jpg') center 56%/cover fixed no-repeat;z-index:-2}
+body.inner-view:after{opacity:.025;z-index:-1}
+body.inner-view .landing-home{min-height:80px;height:80px;padding:12px 32px;overflow:visible;position:sticky;top:0;z-index:50;background:rgba(5,5,5,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.08);isolation:auto}
+body.inner-view .landing-nav{height:55px}
+body.inner-view .landing-hero,body.inner-view .home-media{display:none}
+body.inner-view .app-shell{display:block;min-height:calc(100vh - 80px);background:transparent}
+body.inner-view .sidebar,body.inner-view .app-shell>main>header{display:none}
+body.inner-view .app-shell>main{width:min(1320px,100%);margin:0 auto;padding:28px 0 70px}
+body.inner-view .page{animation:page-in .32s ease both}
+body.inner-view .intro-row,body.inner-view .library-hero,body.inner-view .records-hero,body.inner-view .routes-hero,body.inner-view .reports-hero{padding-top:34px}
+body.inner-view .search-card,body.inner-view .results,body.inner-view .analysis-state{max-width:none}
+body.inner-view .panel,body.inner-view .search-card,body.inner-view .results,body.inner-view .analysis-state{background:rgba(15,15,17,.74);border-color:rgba(255,255,255,.11);backdrop-filter:blur(18px)}
+body.inner-view .landing-links a[aria-current="page"]{color:#fff;background:rgba(255,255,255,.09)}
+@keyframes page-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:760px){body.inner-view .landing-home{height:72px;min-height:72px;padding:12px 16px}body.inner-view .app-shell{min-height:calc(100vh - 72px)}body.inner-view .app-shell>main{padding-top:12px}body.inner-view .landing-links{top:58px}.intro-row,.library-hero,.records-hero,.routes-hero,.reports-hero{padding-left:18px!important;padding-right:18px!important}}

@@ -24,20 +24,30 @@ let catalog = [];
 const selectedForCompare = new Set();
 
 function openHomePage(page){
-  document.querySelector('.landing-home').style.display='none';
+  document.body.classList.add('inner-view');
   document.querySelector('.app-shell').classList.add('opened');
   document.querySelector(`.nav-item[data-page="${page}"]`).click();
-  window.scrollTo({top:0,behavior:'instant'});
+  document.querySelectorAll('.landing-links a').forEach(link=>link.removeAttribute('aria-current'));
+  document.querySelector(`.landing-links [data-open-page="${page}"]`)?.setAttribute('aria-current','page');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 document.querySelectorAll('[data-open-page]').forEach(link=>link.addEventListener('click',event=>{
   event.preventDefault();
   openHomePage(link.dataset.openPage);
 }));
-document.getElementById('returnHome').addEventListener('click',()=>{
-  document.querySelector('.landing-home').style.display='';
+function showHome(){
+  document.body.classList.remove('inner-view');
   document.querySelector('.app-shell').classList.remove('opened');
   document.querySelector('.sidebar').classList.remove('open');
-  window.scrollTo({top:0,behavior:'instant'});
+  document.querySelectorAll('.landing-links a').forEach(link=>link.removeAttribute('aria-current'));
+  document.getElementById('homeNavLink').setAttribute('aria-current','page');
+  history.replaceState(null,'','#top');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.getElementById('returnHome').addEventListener('click',showHome);
+document.getElementById('homeNavLink').addEventListener('click',event=>{
+  event.preventDefault();
+  showHome();
 });
 const homeMenu=document.querySelector('.home-menu');
 homeMenu.addEventListener('click',()=>{
