@@ -10,6 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=20261019-1" />
   <link rel="stylesheet" href="home.css?v=20261022-1" />
+  <link rel="stylesheet" href="folders.css?v=20261022-2" />
+  <link rel="stylesheet" href="home-story.css?v=20261022-2" />
 </head>
 <body>
   <section class="landing-home" aria-label="伯乐识果首页">
@@ -27,7 +29,30 @@
     <section class="home-media" aria-label="地球夜景">
       <img class="earth-image" src="earth-night.jpg" width="2072" height="1379" alt="从太空俯瞰地球的蓝色大气层与城市灯火" fetchpriority="high">
     </section>
+    <a class="hero-scroll-cue" href="#collections">向下探索成果 <span aria-hidden="true">↓</span></a>
   </section>
+  <div class="home-story" id="homeStory">
+    <section class="collection-section" id="collections" aria-labelledby="collectionsTitle">
+      <div class="story-heading"><span class="story-kicker">01 / THE COLLECTIONS</span><div><h2 id="collectionsTitle">每一份成果，都有它的位置。</h2><p>打开一个领域，从值得关注的专利开始探索。</p></div><button class="story-link" data-story-page="library">查看完整成果库 <span>↗</span></button></div>
+      <div class="folder-gallery" id="folderGallery"></div>
+      <p class="folder-instruction">悬停轻启 · 点击展开 · 选择专利查看评估 · ＋ 添加卡片</p>
+      <div class="collection-note"><span>YOUR NEXT DISCOVERY</span><p>将一项研究，放进更大的可能。</p><small>新增卡片保存在当前浏览器；评估入口使用现有演示专利库。</small></div>
+    </section>
+    <section class="story-workflow" id="how-it-works" aria-labelledby="workflowTitle">
+      <div class="story-heading"><span class="story-kicker">02 / FROM RESEARCH TO IMPACT</span><div><h2 id="workflowTitle">从一项专利，到下一步行动。</h2><p>把分散的资料，变成可以讨论的决策依据。</p></div></div>
+      <div class="workflow-steps">
+        <article><span>01</span><h3>发现成果</h3><p>输入专利号、关键词或高校名称，找到你关注的科技成果。</p><small>DISCOVER</small></article>
+        <article><span>02</span><h3>理解潜力</h3><p>查看技术、法律、市场与转化环境四个维度，回溯评分依据。</p><small>UNDERSTAND</small></article>
+        <article><span>03</span><h3>探索路径</h3><p>比较候选成果与转化建议，梳理企业验证、合作开发等行动方向。</p><small>CONNECT</small></article>
+        <article><span>04</span><h3>形成决策</h3><p>生成成果摘要，为技术转移中心与科研团队的下一次讨论做准备。</p><small>TAKE ACTION</small></article>
+      </div>
+      <button class="story-start" data-story-page="workspace">从你的第一项成果开始 <span>→</span></button>
+    </section>
+    <section class="story-principles"><span class="story-kicker">MADE FOR PEOPLE WHO MOVE RESEARCH FORWARD</span><h2>看见潜力，也看清依据。</h2><div><p>为高校技术转移中心与科研人员而设计。将专利资料、评分证据与路径建议放在一起，让每一次判断都有迹可循。</p><p>当前展示 5 项真实专利样本。评估用于成果初筛，转化方案由科研团队、技术经理人与企业共同完善。</p></div></section>
+    <footer class="story-footer"><div class="footer-main"><a href="#top" class="footer-brand" data-story-home>伯乐识果 <span>BOLE</span></a><p>让科研成果，被看见。<br>Turn Research into Impact.</p><div><button data-story-page="library">成果库</button><button data-story-page="workspace">智能评估</button><button data-story-page="routes">转化路径</button><button data-story-page="reports">报告中心</button></div></div><div class="footer-bottom"><span>© 2026 BOLE · Research to Impact</span><span>高校科技成果潜力评估与转化路径推荐智能体</span><a href="#top" data-story-home>回到顶部 ↑</a></div></footer>
+  </div>
+  <dialog id="folderAddDialog" class="folder-dialog" aria-labelledby="folderDialogTitle"><form id="folderAddForm"><div class="folder-dialog-head"><span>ADD TO COLLECTION</span><button type="button" data-close-folder-dialog aria-label="关闭添加卡片">×</button></div><h2 id="folderDialogTitle">添加成果卡片</h2><p id="folderDialogDescription">整理你关注的专利，留待进一步探索。</p><label>专利或成果名称<input id="folderFileName" maxlength="100" required placeholder="例如：一种新型生物传感器"></label><label>专利号或所属高校<input id="folderFileMeta" maxlength="100" placeholder="选填，用于标记与查找"></label><small>保存在当前浏览器，不会修改现有评估数据库。</small><div class="folder-dialog-actions"><button type="button" data-close-folder-dialog>取消</button><button type="submit">加入文件夹 →</button></div></form></dialog>
+  <div class="folder-toast" id="folderToast" role="status" aria-live="polite"></div>
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand">
@@ -212,5 +237,7 @@
   <script src="catalog-data.js?v=20261016-6"></script>
   <script src="app.js?v=20261021-1"></script>
   <script src="morph-search.js?v=20261022-1"></script>
+  <script src="folder-art.js?v=20261022-2"></script>
+  <script src="home-story.js?v=20261022-2"></script>
 </body>
 </html>
