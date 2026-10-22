@@ -60,9 +60,7 @@ document.querySelectorAll('.landing-nav a').forEach(link=>link.addEventListener(
   document.getElementById('homeNavigation').classList.remove('is-open');
 }));
 function evaluateFromHome(query){
-  input.value=query;
-  openHomePage('workspace');
-  runEvaluation();
+  window.BoleMorph.start(query);
 }
 document.getElementById('homeSearch').addEventListener('submit',event=>{
   event.preventDefault();
