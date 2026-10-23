@@ -1,9 +1,9 @@
 /* Glass folders use the geometry, motion and procedural artwork of the supplied component. */
 (() => {
   const groups=[
-    {label:'医疗与生命健康',art:'aurora',tone:'light',place:'bottom-left',ids:['CN-101862211-B']},
-    {label:'电子信息与智能制造',art:'none',tone:'light',place:'top-left',ids:['CN-101719504-B','CN-101534062-B']},
-    {label:'绿色技术与环境',art:'ember',tone:'dark',place:'top-right',ids:['CN-109444944-B','CN-115646511-B']}
+    {label:'医疗与生命健康',art:'aurora',tone:'dark',place:'bottom-left',ids:['CN-101862211-B']},
+    {label:'电子信息与智能制造',art:'glacier',tone:'dark',place:'top-left',ids:['CN-101719504-B','CN-101534062-B']},
+    {label:'绿色技术与环境',art:'verdant',tone:'dark',place:'top-right',ids:['CN-109444944-B','CN-115646511-B']}
   ];
   const source=window.BOLE_CATALOG||[];
   const key='bole.collections.v1';
@@ -23,7 +23,9 @@
     const cacheKey=preset+seed;
     if(!artworkCache.has(cacheKey)){
       artworkCache.set(cacheKey,new Promise(resolve=>{
-        const job=window.BoleFolderArt.createArtJob(364,296,window.BoleFolderArt.ART_PRESETS[preset],seed);
+        const palettes={aurora:['#070d19','#12243c','#344d6d','#70879f','#24374f','#101927'],glacier:['#090e18','#253449','#7b8fa5','#35485e','#131e30','#9eafc0'],verdant:['#050e13','#12323c','#34626d','#0d1a25','#557b82','#9db6b9'],dusk:['#0b101f','#293953','#657795','#18243a','#8796ae']};
+        const recipe={...window.BoleFolderArt.ART_PRESETS[preset],colors:palettes[preset]||palettes.aurora};
+        const job=window.BoleFolderArt.createArtJob(364,296,recipe,seed);
         function paint(){if(!job.step(5)){requestAnimationFrame(paint);return;}const src=document.createElement('canvas');src.width=job.width;src.height=job.height;src.getContext('2d')?.putImageData(new ImageData(job.pixels,job.width,job.height),0,0);resolve(src);}
         requestAnimationFrame(paint);
       }));
