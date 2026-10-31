@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="home.css?v=20261022-1" />
   <link rel="stylesheet" href="folders.css?v=20261022-2" />
   <link rel="stylesheet" href="home-story.css?v=20261023-1" />
+  <link rel="stylesheet" href="tilted-hero.css?v=20261031-1" />
 </head>
 <body>
   <section class="landing-home" aria-label="伯乐识果首页">
@@ -22,13 +23,12 @@
     </nav>
     <main class="landing-hero" id="top">
       <h1>让科研成果，被看见<span>Turn Research into <em>Impact</em></span></h1>
+      <div class="patent-reel" id="patentReel" aria-hidden="true"><div class="patent-reel-camera"></div></div>
+      <div class="reel-caption"><span>医疗器械</span><span>半导体与光电</span><span>环境监测</span><small>专利技术领域示意图</small></div>
       <p>从一项专利出发，发现成果潜力，梳理转化路径。</p>
       <form id="homeSearch" class="home-search" role="search"><label for="homePatentInput" class="sr-only">检索专利、成果或高校</label><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><input id="homePatentInput" placeholder="输入专利号、成果名称或高校名称" autocomplete="off" required><button type="submit">开始智能评估 <span>→</span></button></form>
       <div class="home-examples"><span>试试看</span><button type="button" data-home-query="CN-101862211-B">CN-101862211-B</button><button type="button" data-home-query="硅基光电探测器">硅基光电探测器</button><button type="button" data-home-query="厦门大学">厦门大学</button></div>
     </main>
-    <section class="home-media" aria-label="地球夜景">
-      <img class="earth-image" src="earth-night.jpg" width="2072" height="1379" alt="从太空俯瞰地球的蓝色大气层与城市灯火" fetchpriority="high">
-    </section>
     <a class="hero-scroll-cue" href="#collections">向下探索成果 <span aria-hidden="true">↓</span></a>
   </section>
   <div class="home-story" id="homeStory">
@@ -239,5 +239,6 @@
   <script src="morph-search.js?v=20261022-1"></script>
   <script src="folder-art.js?v=20261022-2"></script>
   <script src="home-story.js?v=20261023-1"></script>
+  <script src="tilted-hero.js?v=20261031-1"></script>
 </body>
 </html>
