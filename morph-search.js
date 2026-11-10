@@ -8,9 +8,9 @@
   form.before(stage);stage.append(form);
   form.querySelector('svg').innerHTML='<path d="m10 3 2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/><path d="m19 14 1 3 3 1-3 1-1 3-1-3-3-1 3-1z"/>';
   const send=form.querySelector('button');
-  send.setAttribute('aria-label','开始智能评估');
+  send.setAttribute('aria-label','检索并查看结果');
   send.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20V4m-7 7 7-7 7 7"/></svg>';
-  stage.insertAdjacentHTML('beforeend','<canvas class="morph-orb" width="440" height="440" aria-hidden="true"></canvas><p class="morph-status" role="status" aria-live="polite"></p><article class="morph-answer" tabindex="-1"><small>检索结果</small><h2></h2><p></p><div><button type="button" class="morph-view">查看完整评估 →</button><button type="button" class="morph-reset">重新检索</button></div></article><button type="button" class="morph-cancel">取消检索</button>');
+  stage.insertAdjacentHTML('beforeend','<canvas class="morph-orb" width="440" height="440" aria-hidden="true"></canvas><p class="morph-status" role="status" aria-live="polite"></p><article class="morph-answer" tabindex="-1"><small>检索结果</small><h2></h2><p></p><div><button type="button" class="morph-chat">进入 AI 聊天 →</button><button type="button" class="morph-view">查看完整评估 →</button><button type="button" class="morph-reset">重新检索</button></div></article><button type="button" class="morph-cancel">取消检索</button>');
   const canvas=stage.querySelector('canvas'),ctx=canvas.getContext('2d');
   const status=stage.querySelector('.morph-status'),answer=stage.querySelector('.morph-answer');
   [form,answer].forEach(surface=>{
@@ -47,10 +47,11 @@
     await wait(reduced.matches?120:450);if(run!==epoch)return;
     cancelAnimationFrame(raf);busy=false;stage.dataset.phase='answered';
     answer.querySelector('h2').textContent=matched?matched.title:'暂未找到这项成果';
-    answer.querySelector('p').textContent=matched?`${matched.university} · ${matched.publication_number}`:`当前演示库包含 5 项真实专利。请尝试专利号、成果关键词或高校名称。`;
+    answer.querySelector('p').textContent=matched?`${matched.university} · ${matched.publication_number}`:`当前演示库包含 5 项真实专利。你可以带着原问题进入 AI 聊天，补充资料后继续分析。`;
     stage.querySelector('.morph-view').hidden=!matched;
     answer.focus({preventScroll:true});
   }
+  stage.querySelector('.morph-chat').addEventListener('click',()=>chatFromHome(lastQuery));
   stage.querySelector('.morph-reset').addEventListener('click',reset);
   stage.querySelector('.morph-cancel').addEventListener('click',reset);
   stage.querySelector('.morph-view').addEventListener('click',()=>{input.value=matched?.publication_number||lastQuery;reset();openHomePage('workspace');runEvaluation();});

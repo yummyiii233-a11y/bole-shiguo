@@ -66,11 +66,11 @@ function chatFromHome(query){
 }
 document.getElementById('homeSearch').addEventListener('submit',event=>{
   event.preventDefault();
-  chatFromHome(document.getElementById('homePatentInput').value.trim());
+  window.BoleMorph.start(document.getElementById('homePatentInput').value.trim());
 });
 document.querySelectorAll('[data-home-query]').forEach(button=>button.addEventListener('click',()=>{
   document.getElementById('homePatentInput').value=button.dataset.homeQuery;
-  chatFromHome(button.dataset.homeQuery);
+  window.BoleMorph.start(button.dataset.homeQuery);
 }));
 
 document.querySelectorAll('.search-card,.panel,.results').forEach(card=>card.addEventListener('pointermove',e=>{
