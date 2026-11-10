@@ -18,7 +18,7 @@
   <section class="landing-home" aria-label="伯乐识果首页">
     <nav class="landing-nav" aria-label="首页导航">
       <a class="landing-brand" href="#top"><span class="landing-mark">伯</span><strong>伯乐识果<small>BOLE</small></strong></a>
-      <div class="landing-links" id="homeNavigation"><a href="#top" id="homeNavLink" aria-current="page">首页</a><a href="#library" data-open-page="library">成果库</a><a href="#workspace" data-open-page="workspace">智能评估</a><a href="#routes" data-open-page="routes">转化路径</a><a href="#reports" data-open-page="reports">报告中心</a></div>
+      <div class="landing-links" id="homeNavigation"><a href="agent.html">AI 智能体</a><a href="#top" id="homeNavLink" aria-current="page">首页</a><a href="#library" data-open-page="library">成果库</a><a href="#workspace" data-open-page="workspace">智能评估</a><a href="#routes" data-open-page="routes">转化路径</a><a href="#reports" data-open-page="reports">报告中心</a></div>
       <div class="landing-actions"><a class="landing-cta" href="#workspace" data-open-page="workspace">进入工作台 <span>↗</span></a><button class="home-menu" aria-label="展开导航" aria-expanded="false" aria-controls="homeNavigation">☰</button></div>
     </nav>
     <main class="landing-hero" id="top">
@@ -61,6 +61,7 @@
       </div>
       <nav>
         <button class="nav-home" id="returnHome"><span>⌂</span>返回首页</button>
+        <a class="nav-item" href="agent.html"><span>✦</span>AI 智能体</a>
         <button class="nav-item active" data-page="workspace"><span>⌁</span>智能评估</button>
         <button class="nav-item" data-page="library"><span>⌕</span>成果库</button>
         <button class="nav-item" data-page="records"><span>▤</span>评估记录</button>
@@ -125,9 +126,9 @@
             </article>
 
             <article class="agent-panel panel">
-              <div class="agent-head"><div class="agent-avatar">伯</div><div><strong>伯乐识果智能体</strong><span><i></i>分析已完成</span></div><button>···</button></div>
-              <div class="agent-message"><p id="agentSummary">请选择一项成果，智能体将基于数据库证据生成可解释建议。</p><ol id="agentActions"></ol></div>
-              <div class="chat-input"><input placeholder="继续追问：这项成果适合哪些企业？"/><button>↑</button></div>
+              <div class="agent-head"><div class="agent-avatar">伯</div><div><strong>转化初筛建议</strong><span><i></i>规则评分</span></div><button>···</button></div>
+              <div class="agent-message"><p id="agentSummary">选择成果后查看规则初筛建议。</p><ol id="agentActions"></ol></div>
+              <div class="agent-message"><a id="agentPatentLink" href="agent.html" style="color:#b8c6ff">向 AI 追问这项成果 ↗</a></div>
             </article>
           </div>
         </div>
@@ -235,7 +236,7 @@
     </div>
   </div>
   <script src="catalog-data.js?v=20261016-6"></script>
-  <script src="app.js?v=20261021-1"></script>
+  <script src="app.js?v=20261110-1"></script>
   <script src="morph-search.js?v=20261022-1"></script>
   <script src="folder-art.js?v=20261022-2"></script>
   <script src="home-story.js?v=20261023-1"></script>

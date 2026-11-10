@@ -1,4 +1,4 @@
-const navItems = document.querySelectorAll('.nav-item');
+const navItems = document.querySelectorAll('.nav-item[data-page]');
 const workspace = document.getElementById('workspace');
 const placeholder = document.getElementById('placeholder');
 const placeholderTitle = document.getElementById('placeholderTitle');
@@ -206,6 +206,8 @@ function renderPatent(item){
     list.appendChild(button);
   });
 
+  const agentPatentLink = document.getElementById('agentPatentLink');
+  if (agentPatentLink) agentPatentLink.href = 'agent.html?patent=' + encodeURIComponent(item.publication_number);
   setText('agentSummary',`基于 ${item.university} 的专利、法律状态与高校转化表现数据，建议优先执行以下行动。当前市场维度仍使用代理指标，结论需由 TTO 和领域专家复核。`);
   const actions=document.getElementById('agentActions');
   actions.innerHTML=item.routes.map(route=>`<li><span>${route.rank}</span><div><b>${route.name}</b><small>${route.reason}</small></div></li>`).join('');

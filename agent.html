@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>伯乐识果 · 转化智能体</title>
+<style>
+:root{color-scheme:dark;font:16px/1.65 system-ui,sans-serif;background:#0b1018;color:#e9eff8}
+*{box-sizing:border-box}
+body{margin:0}
+main{max-width:860px;margin:auto;padding:24px 20px 64px}
+header,.actions{display:flex;justify-content:space-between;align-items:center;gap:12px}
+header{border-bottom:1px solid #27354b;padding-bottom:16px}
+a{color:#aacaff}
+h1{font-size:clamp(32px,6vw,56px);line-height:1.15;margin:30px 0 12px}
+p,small,#status{color:#b0c0d5}
+.examples{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}
+button,input,textarea{font:inherit;color:inherit;background:#162235;border:1px solid #415471;border-radius:10px;padding:8px 12px}
+button{cursor:pointer}
+button:disabled{cursor:wait;opacity:.6}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #9fc7ff}
+article,form{padding:16px;background:#101a29;border:1px solid #27354b;border-radius:14px;margin:12px 0}
+article[data-role=user]{background:#192a40}
+article p{white-space:pre-wrap;overflow-wrap:anywhere;color:inherit;margin:8px 0}
+form{display:grid;gap:8px}
+input{max-width:240px}
+textarea{resize:vertical;width:100%}
+#send{background:#b8d4ff;color:#101a29;font-weight:700}
+
+</style>
+
+
+</head>
+<body>
+<main>
+<header><a href="./">伯乐识果 ↗</a><button id="reset" type="button">新对话</button></header>
+<h1>成果转化智能体</h1>
+<p>查询专利资料，比较企业需求，梳理转化路径。结论附参考资料和待核验事项。</p>
+<section class="examples" aria-label="示例问题">
+<button type="button" data-prompt="分析 CN-101862211-B 的转化准备度。解释规则评分能说明什么，并列出与医疗器械企业对接前应核验的事项。">专利潜力分析</button>
+<button type="button" data-prompt="对照企业需求 EQ-001，评估硅基光电探测器 CN-101719504-B 是否适合激光传感器方向。分开写可能匹配点、指标缺口和下一步。">企业需求匹配</button>
+<button type="button" data-prompt="为水中氚快速自动分析专利 CN-109444944-B 拟定从样机验证到试点合作的路径，每个阶段写出进入下一阶段的条件。">转化路径建议</button>
+</section>
+<section id="conversation" aria-label="对话" role="log"></section>
+<form id="chat">
+<label for="password">评审口令 <small>账号 reviewer</small></label>
+<input id="password" type="password" required autocomplete="current-password">
+<label for="question">你的问题</label>
+<textarea id="question" rows="3" maxlength="2000" required placeholder="输入专利号、需求编号，或描述你想解决的问题"></textarea>
+<div class="actions"><span id="status" role="status"></span><button id="send">发送问题</button></div>
+</form>
+</main>
+<script>
+window.BOLE_AGENT_ENDPOINT = 'https://bole-agent-urezcyvpms.cn-hangzhou.fcapp.run';
+const form = document.querySelector('#chat');
+const question = document.querySelector('#question');
+const password = document.querySelector('#password');
+const conversation = document.querySelector('#conversation');
+const status = document.querySelector('#status');
+const send = document.querySelector('#send');
+const reset = document.querySelector('#reset');
+const history = [];
+const patent = new URLSearchParams(location.search).get('patent');
+if (patent && /^CN-\d+-[A-Z]\d?$/.test(patent)) {
+  question.value = '分析 ' + patent + ' 的转化准备度，并列出下一步需要核验的事项。';
+}
+
+function show(role, content, model, sources = []) {
+  const card = document.createElement('article');
+  card.dataset.role = role;
+  const name = document.createElement('strong');
+  name.textContent = role === 'user' ? '你' : '伯乐识果 · ' + model;
+  const text = document.createElement('p');
+  text.textContent = content;
+  card.append(name, text);
+  if (sources.length) {
+    const label = document.createElement('small');
+    label.textContent = '本轮检索到的资料';
+    const list = document.createElement('ul');
+    for (const source of sources) {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = source.url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = source.id + ' · ' + source.title;
+      item.append(link);
+      list.append(item);
+    }
+    card.append(label, list);
+  }
+  conversation.append(card);
+  return card;
+}
+
+document.querySelectorAll('[data-prompt]').forEach(button => {
+  button.addEventListener('click', () => {
+    question.value = button.dataset.prompt;
+    question.focus();
+  });
+});
+reset.addEventListener('click', () => {
+  history.length = 0;
+  conversation.replaceChildren();
+  status.textContent = '';
+  question.value = '';
+  question.focus();
+});
+form.addEventListener('submit', async event => {
+  event.preventDefault();
+  const content = question.value.trim();
+  if (!content || send.disabled) return;
+  send.disabled = reset.disabled = question.readOnly = true;
+  status.textContent = '正在检索资料并分析…';
+  const pending = show('user', content);
+  try {
+    const credential = Array.from(new TextEncoder().encode('reviewer:' + password.value), byte => String.fromCharCode(byte)).join('');
+    const endpoint = window.BOLE_AGENT_ENDPOINT;
+    if (!endpoint && location.hostname.endsWith('.github.io')) {
+      throw new Error('评审服务正在配置，请稍后再试。');
+    }
+    const response = await fetch(endpoint || '../api/agent', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json', Authorization:'Basic ' + btoa(credential)},
+      body: JSON.stringify({messages:[...history.slice(-8), {role:'user',content}]}),
+      signal: AbortSignal.timeout(65000)
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || typeof result.answer !== 'string') {
+      throw new Error(result.error || '无法连接智能体服务，请使用正式评审链接。');
+    }
+    show('assistant', result.answer, result.model, result.sources);
+    history.push({role:'user',content}, {role:'assistant',content:result.answer.slice(0, 8000)});
+    question.value = '';
+    status.textContent = '可以继续追问。';
+  } catch (error) {
+    pending.remove();
+    status.textContent = error.name === 'TimeoutError' ? '请求超时，请重试。' : error.message;
+  } finally {
+    send.disabled = reset.disabled = question.readOnly = false;
+  }
+});
+
+</script>
+</body>
+</html>
