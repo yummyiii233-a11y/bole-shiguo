@@ -61,17 +61,24 @@ document.querySelectorAll('.landing-nav a').forEach(link=>link.addEventListener(
 }));
 function chatFromHome(query){
   if (!query) return;
-  sessionStorage.setItem('bole:first-question', query);
-  window.location.assign('agent.html');
+  window.BoleChat.open(query);
 }
 document.getElementById('homeSearch').addEventListener('submit',event=>{
   event.preventDefault();
   window.BoleMorph.start(document.getElementById('homePatentInput').value.trim());
 });
-document.querySelectorAll('[data-home-query]').forEach(button=>button.addEventListener('click',()=>{
-  document.getElementById('homePatentInput').value=button.dataset.homeQuery;
-  window.BoleMorph.start(button.dataset.homeQuery);
-}));
+const homePrompt = document.getElementById('homePatentInput');
+homePrompt.addEventListener('keydown', event => {
+  if (event.key !== 'Enter' || event.shiftKey || event.isComposing) return;
+  event.preventDefault();
+  homePrompt.form.requestSubmit();
+});
+document.querySelectorAll('[data-compose-prompt]').forEach(button => {
+  button.addEventListener('click', () => {
+    homePrompt.value = button.dataset.composePrompt;
+    homePrompt.focus();
+  });
+});
 
 document.querySelectorAll('.search-card,.panel,.results').forEach(card=>card.addEventListener('pointermove',e=>{
   const r=card.getBoundingClientRect();

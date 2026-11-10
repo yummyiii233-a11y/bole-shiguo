@@ -1,0 +1,33 @@
+.morph-stage{max-width:720px}
+.morph-stage[data-phase=idle]{height:154px}
+.morph-stage .prompt-composer{display:flex;flex-direction:column;align-items:stretch;justify-content:space-between;height:150px;padding:16px 18px;border-radius:26px;background:linear-gradient(135deg,#161f2aeb,#211b25e8);box-shadow:0 16px 60px #0006,0 0 70px #687fbb22}
+.prompt-composer textarea{position:relative;z-index:1;resize:none;width:100%;padding:4px 3px;border:0;background:transparent;color:#edf3fb;font:inherit;outline:none}
+.prompt-composer textarea::placeholder{color:#aab3c1}
+.prompt-toolbar,.prompt-chips{display:flex;align-items:center;gap:7px}
+.prompt-toolbar{position:relative;z-index:1;justify-content:space-between}
+.morph-stage .prompt-composer button{position:static;width:auto;height:auto;padding:6px 9px;border:1px solid #ffffff20;border-radius:8px;background:#ffffff0d;color:#dce5f1;font:inherit;font-size:.75rem}
+.morph-stage .prompt-composer button[type=submit]{display:grid;place-items:center;flex:none;width:42px;height:42px;padding:9px;border-radius:50%;background:linear-gradient(#dce7ef,#8399ac);color:#182631}
+.morph-stage:not([data-phase=idle]) .prompt-composer :is(textarea,.prompt-toolbar){visibility:hidden}
+.landing-hero > .prompt-hint{font-size:.75rem;color:#aab3c1;margin:8px auto 0}
+.morph-stage:not([data-phase=idle]) + .prompt-hint{display:none}
+#homeConversation{width:calc(100% - 40px);max-width:720px;margin:22px auto 40px;padding:18px;text-align:left;background:#10151eea;border:1px solid #ffffff20;border-radius:22px;scroll-margin-top:100px;overflow-wrap:anywhere}
+#homeConversation[hidden]{display:none}
+.chat-heading,#homeConversation .actions{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.chat-heading h2{font-size:1rem;margin:0}
+#homeConversation button,#homeConversation input,#homeConversation textarea{font:inherit;color:inherit;background:#1b2431;border:1px solid #ffffff25;border-radius:10px;padding:8px 12px}
+#homeConversation button{cursor:pointer}
+#homeConversation #send{background:#d9e6f7;color:#101a29;white-space:nowrap}
+#homeConversation #conversation{display:flex;flex-direction:column;gap:18px;margin:22px 0}
+#homeConversation article{align-self:flex-start;max-width:88%;min-width:0}
+#homeConversation article[data-role=user]{align-self:flex-end}
+#homeConversation .message-meta{display:flex;gap:6px;align-items:center;padding:0 12px;color:#b2bdcc;font-size:.75rem}
+#homeConversation [data-role=user] .message-meta{justify-content:flex-end}
+#homeConversation .dot{width:4px;height:4px;border-radius:50%;background:currentColor}
+#homeConversation .message-bubble{background:#1a202a;border-radius:15px;padding:10px 13px;margin:4px 0;overflow-wrap:anywhere}
+#homeConversation [data-role=user] .message-bubble{background:#2a3c54}
+#homeConversation .message-bubble p{margin:0;white-space:pre-wrap;font-size:.95rem;color:inherit;text-align:left}
+#homeConversation #chat{display:grid;gap:8px}
+#homeConversation input{width:min(100%,240px)}
+#homeConversation textarea{width:100%;resize:vertical}
+#homeConversation a{color:#aacaff}
+@media(max-width:480px){.morph-stage .prompt-composer{padding:12px}.prompt-chips{gap:4px}.morph-stage .prompt-chips button{padding-inline:5px}}
