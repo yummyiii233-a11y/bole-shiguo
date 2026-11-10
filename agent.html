@@ -93,6 +93,16 @@ function show(role, content, model, sources = []) {
   return card;
 }
 
+const firstQuestion = sessionStorage.getItem('bole:first-question');
+let firstCard;
+if (firstQuestion) {
+  sessionStorage.removeItem('bole:first-question');
+  question.value = firstQuestion;
+  firstCard = show('user', firstQuestion);
+  status.textContent = '输入评审口令后，发送这条消息。';
+  password.focus();
+}
+
 document.querySelectorAll('[data-prompt]').forEach(button => {
   button.addEventListener('click', () => {
     question.value = button.dataset.prompt;
@@ -112,6 +122,8 @@ form.addEventListener('submit', async event => {
   if (!content || send.disabled) return;
   send.disabled = reset.disabled = question.readOnly = true;
   status.textContent = '正在检索资料并分析…';
+  firstCard?.remove();
+  firstCard = undefined;
   const pending = show('user', content);
   try {
     const credential = Array.from(new TextEncoder().encode('reviewer:' + password.value), byte => String.fromCharCode(byte)).join('');

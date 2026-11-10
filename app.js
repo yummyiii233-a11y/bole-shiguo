@@ -59,16 +59,18 @@ document.querySelectorAll('.landing-nav a').forEach(link=>link.addEventListener(
   homeMenu.setAttribute('aria-expanded','false');
   document.getElementById('homeNavigation').classList.remove('is-open');
 }));
-function evaluateFromHome(query){
-  window.BoleMorph.start(query);
+function chatFromHome(query){
+  if (!query) return;
+  sessionStorage.setItem('bole:first-question', query);
+  window.location.assign('agent.html');
 }
 document.getElementById('homeSearch').addEventListener('submit',event=>{
   event.preventDefault();
-  evaluateFromHome(document.getElementById('homePatentInput').value.trim());
+  chatFromHome(document.getElementById('homePatentInput').value.trim());
 });
 document.querySelectorAll('[data-home-query]').forEach(button=>button.addEventListener('click',()=>{
   document.getElementById('homePatentInput').value=button.dataset.homeQuery;
-  evaluateFromHome(button.dataset.homeQuery);
+  chatFromHome(button.dataset.homeQuery);
 }));
 
 document.querySelectorAll('.search-card,.panel,.results').forEach(card=>card.addEventListener('pointermove',e=>{
