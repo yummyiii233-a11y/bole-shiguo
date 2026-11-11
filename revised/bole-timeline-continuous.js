@@ -22,7 +22,7 @@
     section.style.setProperty('--timeline-offset', (-travel * progress) + 'px');
     const milestones = Array.from(track.querySelectorAll('li:not(.bole-timeline-intro)'));
     const intro = track.querySelector('.bole-timeline-intro');
-    const start = intro.querySelector('p').offsetLeft + intro.getBoundingClientRect().left - track.getBoundingClientRect().left;
+    const start = intro.querySelector('p').getBoundingClientRect().left - track.getBoundingClientRect().left;
     const length = track.offsetWidth - start - intro.offsetLeft;
     const initial = Math.min(185, length);
     const distanceAlongLine = initial + (length - initial) * progress;
