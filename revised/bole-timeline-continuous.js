@@ -8,6 +8,14 @@
     if (collections && !root.querySelector('#case-timeline')) {
       collections.before(template.content.cloneNode(true));
     }
+    const workflow = root.querySelector('#workflow');
+    const homeCue = root.querySelector('#home .collection-scroll-cue');
+    if (workflow && homeCue && !workflow.querySelector('.collection-scroll-cue')) {
+      const cue = homeCue.cloneNode(true);
+      cue.setAttribute('href', '#case-timeline');
+      cue.querySelector('span').textContent = '查看转化案例';
+      workflow.append(cue);
+    }
     update();
   }
 
