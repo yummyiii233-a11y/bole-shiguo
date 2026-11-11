@@ -6,7 +6,7 @@
   dialog.setAttribute('aria-describedby', 'advisor-login-description');
   dialog.innerHTML = `
     <button class="advisor-login-close" type="button" aria-label="Close login">×</button>
-    <div class="advisor-login-mark" aria-hidden="true"><span></span></div>
+    <div class="advisor-login-mark" aria-hidden="true"><img src="./assets/bole-original-mark.svg" alt=""></div>
     <h2 id="advisor-login-title">Welcome back</h2>
     <p id="advisor-login-description">Enter your credentials to login to your account.</p>
     <form>
@@ -28,12 +28,29 @@
   const form = dialog.querySelector('form');
   const feedback = dialog.querySelector('[role="status"]');
   const password = dialog.querySelector('input[type="password"]');
+  const email = dialog.querySelector('input[type="email"]');
+  const remember = dialog.querySelector('input[type="checkbox"]');
+  const submit = dialog.querySelector('button[type="submit"]');
+  const emailKey = 'bole:advisor-email';
+  const endpoint = 'https://1529105292-7jbpva7hp9.ap-guangzhou.tencentscf.com';
   let trigger;
+  let pending;
+
+  try {
+    email.defaultValue = localStorage.getItem(emailKey) ?? '';
+    remember.defaultChecked = Boolean(email.defaultValue);
+  } catch {
+    // Sign-in still works if browser storage is unavailable.
+  }
 
   function showFeedback(message) {
     feedback.hidden = false;
     feedback.textContent = message;
   }
+
+  window.openBoleAdvisorLogin = () => {
+    if (!dialog.open) dialog.showModal();
+  };
 
   document.addEventListener('click', event => {
     const link = event.target instanceof Element
@@ -48,15 +65,70 @@
 
   dialog.querySelector('.advisor-login-close').addEventListener('click', () => dialog.close());
   dialog.addEventListener('close', () => {
+    pending?.abort();
+    pending = undefined;
+    submit.disabled = false;
+    submit.textContent = 'Sign in';
     form.reset();
     feedback.hidden = true;
     feedback.textContent = '';
     trigger?.focus({ preventScroll: true });
   });
-  form.addEventListener('submit', event => {
+  form.addEventListener('submit', async event => {
     event.preventDefault();
-    password.value = '';
-    showFeedback('Account sign-in is not available yet.');
+    if (pending) return;
+    const secret = password.value;
+    const attempt = new AbortController();
+    pending = attempt;
+    feedback.hidden = true;
+    submit.disabled = true;
+    submit.classList.add('is-loading');
+    submit.textContent = 'Signing in…';
+
+    try {
+      const auth = btoa(String.fromCharCode(...new TextEncoder().encode('reviewer:' + secret)));
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Basic ' + auth },
+        body: JSON.stringify({ messages: [{ role: 'user', content: 'Reply with OK only.' }] }),
+        signal: AbortSignal.any([attempt.signal, AbortSignal.timeout(20000)]),
+      });
+      if (attempt.signal.aborted || !dialog.open) return;
+      if (response.status === 401 || response.status === 403) {
+        showFeedback('密码不正确，请重试。');
+        password.focus();
+        password.select();
+        return;
+      }
+      const result = await response.json();
+      if (!response.ok || typeof result.answer !== 'string' || !result.answer.trim()) {
+        throw new Error('Advisor validation did not complete');
+      }
+
+      try {
+        sessionStorage.setItem('bole:advisor-session-email', email.value);
+        email.defaultValue = remember.checked ? email.value : '';
+        remember.defaultChecked = remember.checked;
+        if (remember.checked) localStorage.setItem(emailKey, email.value);
+        else localStorage.removeItem(emailKey);
+      } catch {
+        // Remembering the email is optional.
+      }
+
+      window.takeBoleReviewPassword = () => secret;
+      dialog.close();
+      window.location.hash = '#advisor';
+      window.dispatchEvent(new Event('bole:advisor-login'));
+    } catch {
+      if (!attempt.signal.aborted && dialog.open) showFeedback('暂时无法登录，请稍后重试。');
+    } finally {
+      if (pending === attempt) {
+        pending = undefined;
+        submit.disabled = false;
+        submit.classList.remove('is-loading');
+        submit.textContent = 'Sign in';
+      }
+    }
   });
   dialog.querySelector('[data-login-action="reset"]').addEventListener('click', () => {
     showFeedback('Password reset is not available yet.');
