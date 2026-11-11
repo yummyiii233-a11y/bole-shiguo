@@ -67,3 +67,9 @@
 .advisor-login-divider::before, .advisor-login-divider::after { content: ''; flex: 1; height: 1px; background: #d6d6dc; }
 .advisor-login-google { font-weight: 500; }
 .advisor-login-feedback { margin: .8em 0 0; color: #71717d; font-size: .8em; }
+.advisor-login-primary.is-loading { display: flex; align-items: center; justify-content: center; gap: .65em; cursor: wait; }
+.advisor-login-primary.is-loading::before { content: ''; width: .9em; height: .9em; border: 2px solid #ffffff66; border-top-color: #fff; border-radius: 50%; animation: advisor-login-spin .75s linear infinite; }
+@keyframes advisor-login-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .advisor-login-primary.is-loading::before { animation: none; }
+}
