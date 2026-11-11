@@ -1,0 +1,75 @@
+.advisor-login {
+  box-sizing: border-box;
+  position: fixed;
+  inset: 0;
+  width: min(720px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  overflow: auto;
+  padding: clamp(22px, 3.25vw, 44px);
+  border: 1px solid #e0e0e0;
+  border-radius: 22px;
+  background: #fdfdfd;
+  color: #101114;
+  box-shadow: 0 14px 32px #0002;
+  font: 400 clamp(15px, min(1.85vw, 2.15vh), 25px)/1.4 Inter, system-ui, sans-serif;
+}
+
+.advisor-login::backdrop { background: #000c; }
+.advisor-login button { cursor: pointer; }
+.advisor-login-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  color: #68686d;
+  font: 300 34px/1 system-ui, sans-serif;
+}
+
+.advisor-login-mark {
+  display: grid;
+  place-items: center;
+  width: 3.2em;
+  height: 3.2em;
+  margin: 0 auto .8em;
+  border: 1px solid #e0e0e4;
+  border-radius: 50%;
+}
+
+.advisor-login-mark img { width: 100%; height: 100%; object-fit: cover; }
+.advisor-login-primary.is-loading { position: relative; color: transparent; pointer-events: none; }
+.advisor-login-primary.is-loading::after { content: ''; position: absolute; left: 50%; top: 50%; width: 1.05em; height: 1.05em; margin: -.525em; border: .16em solid #ffffff66; border-top-color: #fff; border-radius: 50%; animation: advisor-login-spin .75s linear infinite; }
+@keyframes advisor-login-spin { to { transform: rotate(360deg); } }
+.advisor-login h2 { margin: 0; text-align: center; font-size: 1.28em; font-weight: 650; letter-spacing: -.04em; }
+#advisor-login-description { margin: .65em 0 1.45em; text-align: center; color: #71717d; }
+.advisor-login form { display: grid; }
+.advisor-login form > label { margin-bottom: .64em; font-weight: 500; }
+.advisor-login form > input, .advisor-login-primary, .advisor-login-google {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2.6em;
+  padding: .48em .88em;
+  border: 1px solid #d3d3d8;
+  border-radius: .58em;
+  background: #fdfdfd;
+  box-shadow: 0 1px 3px #0001;
+  font: inherit;
+}
+
+.advisor-login form > input::placeholder { color: #9b9ba5; }
+.advisor-login form > input:focus { outline: none; border-color: #a6a6b0; box-shadow: 0 0 0 5px #17171b16; }
+#advisor-login-email { margin-bottom: 1.36em; }
+.advisor-login-options { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .5em; margin: 1.46em 0; }
+.advisor-login-options label { display: flex; align-items: center; gap: .55em; color: #71717d; cursor: pointer; }
+.advisor-login-options input { width: 1.14em; height: 1.14em; accent-color: #17171b; }
+.advisor-login-options button { text-decoration: underline; text-underline-offset: 2px; }
+.advisor-login-primary { background: #17171b; border-color: #17171b; color: white; font-weight: 500; }
+.advisor-login-divider { display: flex; align-items: center; gap: 1em; margin: 1.3em 0; color: #71717d; font-size: .88em; }
+.advisor-login-divider::before, .advisor-login-divider::after { content: ''; flex: 1; height: 1px; background: #d6d6dc; }
+.advisor-login-google { font-weight: 500; }
+.advisor-login-feedback { margin: .8em 0 0; color: #71717d; font-size: .8em; }
+.advisor-login-primary.is-loading { position: relative; color: transparent; pointer-events: none; }
+.advisor-login-primary.is-loading::after { content: ''; position: absolute; left: 50%; top: 50%; width: 1.05em; height: 1.05em; margin: -.525em; border: .16em solid #ffffff66; border-top-color: #fff; border-radius: 50%; animation: advisor-login-spin .75s linear infinite; }
+@keyframes advisor-login-spin { to { transform: rotate(360deg); } }
