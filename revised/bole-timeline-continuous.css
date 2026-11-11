@@ -15,7 +15,7 @@
 .bole-timeline-track h3 { margin: 3px 0 8px; font-size: 17px; }
 .bole-timeline-track p { margin: 0; color: #575757; font-size: 14px; line-height: 1.55; }
 .bole-timeline-track strong { display: block; color: #303030; margin-bottom: 3px; }
-.bole-timeline-close { margin: 0 6vw; color: #555; font-size: 14px; }
+.bole-timeline-close { margin: clamp(20px, 4vh, 40px) 6vw 0; color: #555; font-size: 14px; text-align: center; }
 @media (max-width: 680px), (max-height: 640px), (prefers-reduced-motion: reduce) {
   #case-timeline { min-height: auto; }
   .bole-timeline-sticky { position: static; min-height: auto; padding: 48px 0; }
