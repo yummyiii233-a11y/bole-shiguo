@@ -57,6 +57,7 @@
       ? event.target.closest('a.patent-browse[href="#advisor"]')
       : null;
     if (!link || link.textContent.trim() !== '进入专利转化顾问') return;
+    if (window.takeBoleReviewPassword?.()) return;
     event.preventDefault();
     if (dialog.open) return;
     trigger = link;
