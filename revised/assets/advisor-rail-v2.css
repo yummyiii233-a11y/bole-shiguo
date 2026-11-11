@@ -1,0 +1,58 @@
+.advisor-rail {
+  box-sizing: border-box;
+  flex: 0 0 52px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 0;
+  background: #f6f6f7;
+  border-right: 1px solid #ececef;
+  z-index: 2;
+}
+.advisor-rail button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 1 44px;
+  width: 44px;
+  min-height: 24px;
+  border-radius: 10px;
+  color: #545963;
+}
+.advisor-rail button:hover, .advisor-rail button:focus-visible,
+.advisor-rail button[aria-current="true"] { background: #2873e8; color: white; }
+.advisor-rail-bottom { margin-top: auto; }
+.advisor-rail button::after {
+  content: attr(data-tip);
+  display: none;
+  position: absolute;
+  left: calc(100% + 6px);
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: #252936;
+  color: white;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.advisor-rail button:hover::after, .advisor-rail button:focus-visible::after { display: block; }
+.advisor-rail-unread {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2873e8;
+}
+.advisor-rail button:hover .advisor-rail-unread,
+.advisor-rail button:focus-visible .advisor-rail-unread { background: white; }
+
+.advisor-rail button[aria-label="展开侧栏"] { display: none; }
+.advisor-rail button:is(:hover, :focus-visible, [aria-current="true"]) {
+  background: radial-gradient(circle 16px, #2873e8 98%, transparent);
+}
+.advisor-rail:has(button:is(:hover, :focus-visible)) button[aria-current="true"]:not(:hover, :focus-visible) {
+  background: none;
+  color: #545963;
+}
