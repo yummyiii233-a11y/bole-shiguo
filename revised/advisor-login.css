@@ -34,13 +34,11 @@
   width: 3.2em;
   height: 3.2em;
   margin: 0 auto .8em;
-  border: 1px solid #e0e0e4;
-  border-radius: 50%;
+  border: 0;
 }
 
 .advisor-login-mark span { width: 1.45em; height: 1.45em; border: .36em solid #252629; border-radius: 50%; }
-.advisor-login-mark { overflow: hidden; }
-.advisor-login-mark img { display: block; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.advisor-login-mark img { display: block; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; clip-path: circle(48%); }
 .advisor-login h2 { margin: 0; text-align: center; font-size: 1.28em; font-weight: 650; letter-spacing: -.04em; }
 #advisor-login-description { margin: .65em 0 1.45em; text-align: center; color: #71717d; }
 .advisor-login form { display: grid; }
