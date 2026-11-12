@@ -22,7 +22,7 @@
     if (workflow && homeCue && !workflow.querySelector('.collection-scroll-cue')) {
       const cue = homeCue.cloneNode(true);
       cue.setAttribute('href', '#case-timeline');
-      cue.querySelector('span').textContent = '查看转化案例';
+      cue.querySelector('span').textContent = 'SEE A CASE STUDY';
       workflow.append(cue);
     }
     scheduleUpdate();
