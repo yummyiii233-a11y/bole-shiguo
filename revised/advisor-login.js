@@ -13,7 +13,12 @@
       <label for="advisor-login-email">Email</label>
       <input id="advisor-login-email" type="email" autocomplete="username" placeholder="hi@yourcompany.com" autofocus required>
       <label for="advisor-login-password">Password</label>
-      <input id="advisor-login-password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+      <div class="advisor-password-field">
+        <input id="advisor-login-password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+        <button class="advisor-password-toggle" type="button" aria-label="Show password" aria-controls="advisor-login-password">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="2.5"/><path class="advisor-password-slash" d="m3 3 18 18"/></svg>
+        </button>
+      </div>
       <div class="advisor-login-options">
         <label><input type="checkbox"> Remember me</label>
         <button type="button" data-login-action="reset">Forgot password?</button>
@@ -28,6 +33,13 @@
   const form = dialog.querySelector('form');
   const feedback = dialog.querySelector('[role="status"]');
   const password = dialog.querySelector('input[type="password"]');
+  const visibility = dialog.querySelector('.advisor-password-toggle');
+  function showPassword(show) {
+    password.type = show ? 'text' : 'password';
+    visibility.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+    visibility.classList.toggle('is-visible', show);
+  }
+  visibility.addEventListener('click', () => showPassword(password.type === 'password'));
   const email = dialog.querySelector('input[type="email"]');
   const remember = dialog.querySelector('input[type="checkbox"]');
   const submit = dialog.querySelector('button[type="submit"]');
@@ -71,6 +83,7 @@
     submit.disabled = false;
     submit.textContent = 'Sign in';
     form.reset();
+    showPassword(false);
     feedback.hidden = true;
     feedback.textContent = '';
     trigger?.focus({ preventScroll: true });
