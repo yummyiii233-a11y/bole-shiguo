@@ -45,8 +45,16 @@
   const submit = dialog.querySelector('button[type="submit"]');
   const emailKey = 'bole:advisor-email';
   const endpoint = 'https://1529105292-7jbpva7hp9.ap-guangzhou.tencentscf.com';
+  const sessionPasswordKey = 'bole:advisor-session-password';
   let trigger;
   let pending;
+
+  try {
+    const savedPassword = sessionStorage.getItem(sessionPasswordKey);
+    if (savedPassword) window.takeBoleReviewPassword = () => savedPassword;
+  } catch {
+    // Sign-in still works if browser storage is unavailable.
+  }
 
   try {
     email.defaultValue = localStorage.getItem(emailKey) ?? '';
@@ -121,6 +129,7 @@
 
       try {
         sessionStorage.setItem('bole:advisor-session-email', email.value);
+        sessionStorage.setItem(sessionPasswordKey, secret);
         email.defaultValue = remember.checked ? email.value : '';
         remember.defaultChecked = remember.checked;
         if (remember.checked) localStorage.setItem(emailKey, email.value);
