@@ -12,14 +12,18 @@
   }
 
   function mount() {
-    const evaluation = root.querySelector('#evaluation');
-    const caseHistory = root.querySelector('#case-history');
-    if (!evaluation) caseHistory?.remove();
-    if (evaluation && !caseHistory) {
-      evaluation.after(template.content.cloneNode(true));
-    }
     const workflow = root.querySelector('#workflow');
-    const homeCue = root.querySelector('#home .collection-scroll-cue');
+    const caseHistory = root.querySelector('#case-history');
+    if (!workflow) caseHistory?.remove();
+    if (workflow && !caseHistory) {
+      workflow.before(template.content.cloneNode(true));
+    }
+
+    const homeCue = root.querySelector('.home-workflow-cue .collection-scroll-cue');
+    if (homeCue && homeCue.getAttribute('href') !== '#case-history') {
+      homeCue.setAttribute('href', '#case-history');
+      homeCue.querySelector('span').textContent = 'SEE A CASE STUDY';
+    }
     if (workflow && homeCue && !workflow.querySelector('.collection-scroll-cue')) {
       const cue = homeCue.cloneNode(true);
       cue.setAttribute('href', '#case-timeline');
