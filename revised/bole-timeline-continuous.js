@@ -24,12 +24,6 @@
       homeCue.setAttribute('href', '#case-history');
       homeCue.querySelector('span').textContent = 'SEE A CASE STUDY';
     }
-    if (workflow && homeCue && !workflow.querySelector('.collection-scroll-cue')) {
-      const cue = homeCue.cloneNode(true);
-      cue.setAttribute('href', '#case-timeline');
-      cue.querySelector('span').textContent = 'EXPLORE TASKS';
-      workflow.append(cue);
-    }
     scheduleUpdate();
   }
 
