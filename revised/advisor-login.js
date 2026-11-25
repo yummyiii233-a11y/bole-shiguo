@@ -6,7 +6,7 @@
   dialog.setAttribute('aria-describedby', 'advisor-login-description');
   dialog.innerHTML = `
     <button class="advisor-login-close" type="button" aria-label="Close login">×</button>
-    <div class="advisor-login-mark" aria-hidden="true"><img src="./assets/bole-original-mark.svg" alt=""></div>
+    <div class="advisor-login-mark" aria-hidden="true"><img src="./assets/bole-original-mark.png" alt=""></div>
     <h2 id="advisor-login-title">Welcome back</h2>
     <p id="advisor-login-description">Enter your credentials to login to your account.</p>
     <form>
