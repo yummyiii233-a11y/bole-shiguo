@@ -12,10 +12,11 @@
   }
 
   function mount() {
-    const collections = root.querySelector('#collections');
-    if (!collections) root.querySelector('#case-history')?.remove();
-    if (collections && !root.querySelector('#case-history')) {
-      collections.before(template.content.cloneNode(true));
+    const evaluation = root.querySelector('#evaluation');
+    const caseHistory = root.querySelector('#case-history');
+    if (!evaluation) caseHistory?.remove();
+    if (evaluation && !caseHistory) {
+      evaluation.after(template.content.cloneNode(true));
     }
     const workflow = root.querySelector('#workflow');
     const homeCue = root.querySelector('#home .collection-scroll-cue');
