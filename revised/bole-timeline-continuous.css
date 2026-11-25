@@ -11,8 +11,8 @@
 .bole-timeline-track li:not(.bole-timeline-intro):nth-child(odd) > div { grid-row: 2; }
 .bole-timeline-track li:not(.bole-timeline-intro):nth-child(odd)::before { top: 50%; bottom: auto; }
 .bole-timeline-track li:not(.bole-timeline-intro):nth-child(odd)::after { top: auto; bottom: 6%; }
-.bole-timeline-track time { font-size: clamp(23px, 2.4vw, 34px); }
-.bole-timeline-track h3 { margin: 3px 0 8px; font-size: 17px; }
+.bole-timeline-track time { font-size: clamp(23px, 2.4vw, 34px); font-weight: 700; }
+.bole-timeline-track h3 { margin: 3px 0 8px; font-size: 17px; font-weight: 700; }
 .bole-timeline-track p { margin: 0; color: #575757; font-size: 14px; line-height: 1.55; }
 .bole-timeline-track strong { display: block; color: #303030; margin-bottom: 3px; }
 .bole-timeline-close { margin: clamp(20px, 4vh, 40px) 6vw 0; color: #555; font-size: 14px; text-align: center; }
