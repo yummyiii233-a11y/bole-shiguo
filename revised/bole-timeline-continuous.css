@@ -1,4 +1,4 @@
-#case-timeline { --orange: #ff5f00; min-height: 230svh; background: #fff; color: #151515; }
+#case-history { --orange: #ff5f00; min-height: 230svh; background: #fff; color: #151515; }
 .bole-timeline-sticky { position: sticky; top: 0; min-height: 100svh; display: grid; align-content: center; gap: 24px; padding: 24px 0; }
 #bole-timeline-title { margin: 0 6vw; font-size: clamp(24px, 3vw, 44px); font-weight: 600; }
 .bole-timeline-window { overflow: clip; }
@@ -17,7 +17,7 @@
 .bole-timeline-track strong { display: block; color: #303030; margin-bottom: 3px; }
 .bole-timeline-close { margin: clamp(20px, 4vh, 40px) 6vw 0; color: #555; font-size: 14px; text-align: center; }
 @media (max-width: 680px), (max-height: 640px), (prefers-reduced-motion: reduce) {
-  #case-timeline { min-height: auto; }
+  #case-history { min-height: auto; }
   .bole-timeline-sticky { position: static; min-height: auto; padding: 48px 0; }
   .bole-timeline-window { overflow-x: auto; }
   .bole-timeline-track { transform: none; }

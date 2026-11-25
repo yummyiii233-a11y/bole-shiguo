@@ -13,8 +13,8 @@
 
   function mount() {
     const collections = root.querySelector('#collections');
-    if (!collections) root.querySelector('#case-timeline')?.remove();
-    if (collections && !root.querySelector('#case-timeline')) {
+    if (!collections) root.querySelector('#case-history')?.remove();
+    if (collections && !root.querySelector('#case-history')) {
       collections.before(template.content.cloneNode(true));
     }
     const workflow = root.querySelector('#workflow');
@@ -22,14 +22,14 @@
     if (workflow && homeCue && !workflow.querySelector('.collection-scroll-cue')) {
       const cue = homeCue.cloneNode(true);
       cue.setAttribute('href', '#case-timeline');
-      cue.querySelector('span').textContent = 'SEE A CASE STUDY';
+      cue.querySelector('span').textContent = 'EXPLORE TASKS';
       workflow.append(cue);
     }
     scheduleUpdate();
   }
 
   function update() {
-    const section = root.querySelector('#case-timeline');
+    const section = root.querySelector('#case-history');
     if (!section) return;
     const track = section.querySelector('.bole-timeline-track');
     const viewport = section.querySelector('.bole-timeline-window');
