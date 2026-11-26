@@ -35,10 +35,13 @@
   height: 3.2em;
   margin: 0 auto .8em;
   border: 0;
+  overflow: hidden;
 }
 
-.advisor-login-mark span { width: 1.45em; height: 1.45em; border: .36em solid #252629; border-radius: 50%; }
 .advisor-login-mark img { display: block; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; clip-path: inset(8%); }
+.advisor-login-primary.is-loading { position: relative; color: transparent; pointer-events: none; }
+.advisor-login-primary.is-loading::after { content: ''; position: absolute; left: 50%; top: 50%; width: 1.05em; height: 1.05em; margin: -.525em; border: .16em solid #ffffff66; border-top-color: #fff; border-radius: 50%; animation: advisor-login-spin .75s linear infinite; }
+@keyframes advisor-login-spin { to { transform: rotate(360deg); } }
 .advisor-login h2 { margin: 0; text-align: center; font-size: 1.28em; font-weight: 650; letter-spacing: -.04em; }
 #advisor-login-description { margin: .65em 0 1.45em; text-align: center; color: #71717d; }
 .advisor-login form { display: grid; }
@@ -67,12 +70,9 @@
 .advisor-login-divider::before, .advisor-login-divider::after { content: ''; flex: 1; height: 1px; background: #d6d6dc; }
 .advisor-login-google { font-weight: 500; }
 .advisor-login-feedback { margin: .8em 0 0; color: #71717d; font-size: .8em; }
-.advisor-login-primary.is-loading { display: flex; align-items: center; justify-content: center; gap: .65em; cursor: wait; }
-.advisor-login-primary.is-loading::before { content: ''; width: .9em; height: .9em; border: 2px solid #ffffff66; border-top-color: #fff; border-radius: 50%; animation: advisor-login-spin .75s linear infinite; }
+.advisor-login-primary.is-loading { position: relative; color: transparent; pointer-events: none; }
+.advisor-login-primary.is-loading::after { content: ''; position: absolute; left: 50%; top: 50%; width: 1.05em; height: 1.05em; margin: -.525em; border: .16em solid #ffffff66; border-top-color: #fff; border-radius: 50%; animation: advisor-login-spin .75s linear infinite; }
 @keyframes advisor-login-spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) {
-  .advisor-login-primary.is-loading::before { animation: none; }
-}
 
 .advisor-password-field { position: relative; }
 .advisor-login .advisor-password-field input { padding-inline-end: 48px; }
