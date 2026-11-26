@@ -4,6 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>伯乐识果 · 转化智能体</title>
+<script>
+  const advisor = new URL('./revised/', window.location.href);
+  advisor.search = window.location.search;
+  advisor.hash = '#advisor';
+  window.location.replace(advisor.href);
+</script>
 <style>
 :root { color-scheme: light; font: 16px/1.55 system-ui, sans-serif; background: #fdfdfd; color: #171717; }
 * { box-sizing: border-box; }
