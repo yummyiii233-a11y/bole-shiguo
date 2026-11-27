@@ -10,15 +10,21 @@
   <link rel="stylesheet" href="collaboration.css">
   <link rel="stylesheet" href="finale.css">
   <link rel="stylesheet" href="grouped-playback.css">
-  <link rel="stylesheet" href="homepage-intro.css">
+  <link rel="stylesheet" href="homepage-intro.css?v=full-home">
 </head>
 <body>
 <main class="stage" data-page="1" data-beat="0" aria-label="伯乐识果产品发布演示">
   <section class="homepage-intro" aria-label="伯乐识果真实网站开场">
     <div class="homepage-screen">
-      <img src="assets/home-online.png" class="homepage-hero" alt="伯乐识果官网：首页与进入专利转化顾问按钮">
-      <img src="assets/home-case.png" class="homepage-case" alt="官网案例：电涡流阻尼转化历程">
-      <img src="assets/home-online-workbench.png" class="homepage-workbench" alt="小伯乐工作台">
+      <img src="assets/home-online.png" data-at="0" alt="首屏：看懂专利价值，找到转化方向" class="is-current">
+      <img src="assets/home-timeline-start.png" data-at="2300" alt="案例展开：电涡流阻尼转化历程">
+      <img src="assets/home-timeline-middle.png" data-at="4000" alt="案例展开：首次转让、专利梳理和市场对接">
+      <img src="assets/home-timeline-end.png" data-at="5800" alt="案例展开：作价入股、企业推广与收入">
+      <img src="assets/home-workflow.png" data-at="7900" alt="你现在遇到了什么问题？">
+      <img src="assets/home-evidence.png" data-at="9900" alt="每一个评估结论，都有依据">
+      <img src="assets/home-agent-flow.png" data-at="11900" alt="从专利到产业，AI 协助每一步">
+      <img src="assets/home-collections.png" data-at="13900" alt="开启你的第一次专利转化">
+      <img src="assets/home-online-workbench.png" data-at="17100" alt="进入小伯乐工作台">
       <svg class="homepage-pointer" viewBox="0 0 36 40" aria-hidden="true">
         <path d="M5 2 31 23l-13 1-5 12L5 2Z" fill="#24201b" stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
       </svg>
@@ -27,7 +33,7 @@
     <div class="homepage-controls">
       <span>官网实录 · 离线回放</span>
       <div>
-        <button id="home-start" type="button" disabled>播放开场 · 12 秒</button>
+        <button id="home-start" type="button" disabled>播放开场 · 19 秒</button>
         <button id="home-skip" type="button">跳过 →</button>
       </div>
     </div>
@@ -237,6 +243,6 @@
 <script src="grouped-playback.js"></script>
 <script src="keynote.js"></script>
 <script src="assets/home-capture.js"></script>
-<script src="homepage-intro.js"></script>
+<script src="homepage-intro.js?v=full-home"></script>
 </body>
 </html>

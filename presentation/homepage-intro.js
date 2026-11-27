@@ -4,20 +4,31 @@
   const skip = document.querySelector("#home-skip");
   const footer = stage.querySelector("footer");
   const screen = intro.querySelector(".homepage-screen");
-  let finishTimer;
+  const frames = [...screen.querySelectorAll("img")];
+  const timers = [];
+  let playing = false;
+  function clearPlayback() {
+    timers.forEach(clearTimeout);
+    timers.length = 0;
+    playing = false;
+    screen.classList.remove("is-entering");
+  }
+  function showFrame(frame) {
+    frames.forEach(image => image.classList.toggle("is-current", image === frame));
+  }
   let ready = false;
   const point = homeEntryPoint;
   screen.style.setProperty("--entry-x", `${point[0]}%`);
   screen.style.setProperty("--entry-y", `${point[1]}%`);
   footer.inert = true;
-  Promise.all([...screen.querySelectorAll("img")].map(image=>image.decode())).then(() => {
+  Promise.all(frames.map(image=>image.decode())).then(() => {
     ready = true;
     start.disabled = false;
   }).catch(() => { start.textContent = "素材未完整加载"; });
 
   function finish() {
     if (intro.hidden) return;
-    clearTimeout(finishTimer);
+    clearPlayback();
     intro.inert = true;
     footer.inert = false;
     groupedPlayback.start(1,groupedPlayback.first(1),true);
@@ -28,12 +39,22 @@
   }
   function play() {
     if (!ready || intro.inert) return;
-    clearTimeout(finishTimer);
-    intro.classList.remove("running");
-    void intro.offsetWidth;
+    clearPlayback();
+    playing = true;
     intro.classList.add("running");
+    showFrame(frames[0]);
+    for (const frame of frames.slice(1)) {
+      timers.push(setTimeout(() => {
+        screen.classList.remove("is-entering");
+        showFrame(frame);
+      }, Number(frame.dataset.at)));
+    }
+    timers.push(setTimeout(() => {
+      showFrame(frames[0]);
+      screen.classList.add("is-entering");
+    }, 15900));
     start.textContent = "重播开场";
-    finishTimer = setTimeout(finish,12000);
+    timers.push(setTimeout(finish, 19000));
   }
   start.onclick = play;
   skip.onclick = finish;
@@ -43,7 +64,7 @@
     if (event.key === " " && event.target.closest("button")) return;
     event.preventDefault();
     event.stopImmediatePropagation();
-    if (event.key === "Escape" || (event.key === "ArrowRight" && finishTimer)) finish();
+    if (event.key === "Escape" || (event.key === "ArrowRight" && playing)) finish();
     else if (event.key !== "ArrowLeft") play();
   }, true);
 })();
