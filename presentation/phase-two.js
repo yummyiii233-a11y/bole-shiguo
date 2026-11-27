@@ -89,7 +89,9 @@ const extension = (() => {
     detail.replaceChildren(...elements);
   }
 
+  let pendingDrop;
   function render(stage, shot) {
+    cancelAnimationFrame(pendingDrop);
     const c = [Boolean(shot),shot?.sheet,shot?.tech,shot?.detail,shot?.drag,shot?.result,shot?.side,shot?.linked];
     activeClasses.forEach((name,index) => stage.classList.toggle(name,Boolean(c[index])));
     excel.classList.toggle("visible",Boolean(shot?.file));
@@ -106,7 +108,7 @@ const extension = (() => {
     focus.classList.remove("visible");
   }
   function land(shot) {
-    if (shot.drag) requestAnimationFrame(() => {
+    if (shot.drag) pendingDrop = requestAnimationFrame(() => {
       if (excel.closest(".drag-shot")) excel.classList.add("dropped");
     });
     if (!shot.highlight) return;

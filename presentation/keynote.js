@@ -28,7 +28,7 @@ const product = [
   { image: "workbench", label: "小伯乐 Agent · 真实工作台", note: "工作台、与小伯乐协作、成果管理、报告中心共用一个工作空间。" },
   { image: "assets", label: "回到成果管理", note: "停在专利列表 · 批量导入留待下一阶段", point: [6, 27.5] }
 ];
-const stageShots = [...collaborationReplay.shots,finale.shots];
+const stageShots = groupedPlayback.prepare([...collaborationReplay.shots,finale.shots]);
 const limits = [2, journey.length, product.length, ...stageShots.map(shots => shots.length)];
 const imageCache = new Map();
 for (const image of ["collaboration", ...product.map(shot=>shot.image), ...stageShots.flat().map(shot=>shot.image)]) {
@@ -83,6 +83,7 @@ function showShot(shot, simulate) {
     if (shot.coTag || shot.stream || shot.archive) {
       pointerAnimations.push(...collaborationReplay.land(stage,shot));
     }
+    groupedPlayback.land(shot);
     if (shot.hover && !reduced.matches) {
       const [x,y] = shot.hover;
       cursor.style.left = `${x}%`;
@@ -101,7 +102,7 @@ function showShot(shot, simulate) {
   cursor.style.left = ring.style.left = `${x}%`;
   cursor.style.top = ring.style.top = `${y}%`;
   cursor.style.zIndex = ring.style.zIndex = "4";
-  camera.style.setProperty("--zoom", 1);
+  if(!stage.classList.contains("grouped-entry")) camera.style.setProperty("--zoom", 1);
   pointerAnimations = [
     cursor.animate([
       {opacity:0, transform:"translate(.7cqw,1cqw)"},
@@ -116,6 +117,7 @@ function showShot(shot, simulate) {
 
 function show(targetPage, targetBeat, replay = false) {
   clearTimeout(pendingShot);
+  groupedPlayback.hideOld();
   fullscreenStatus.hidden = true;
   for (const animation of pointerAnimations) animation.cancel();
   pointerAnimations = [];
@@ -132,6 +134,8 @@ function show(targetPage, targetBeat, replay = false) {
   const journeyBeat = page === 2 ? journey[beat] : undefined;
   const extendedShot = page > 3 ? stageShots[page - 4][beat] : undefined;
   const shot = page === 3 ? product[beat] : extendedShot;
+  const sendingDraft = page===oldPage && beat===oldBeat+1 && stageShots[page-4]?.[beat-1]?.draftReveal;
+  stage.classList.toggle("grouped-entry", Boolean(shot?.entryReplay || shot?.draftReveal || sendingDraft));
   extension.render(stage,page <= 6 ? extendedShot : undefined);
   phaseThree.render(stage,page >= 7 && page <= 11 ? extendedShot : undefined);
   finale.render(stage,page === 12 ? beat : -1);
@@ -158,7 +162,7 @@ function show(targetPage, targetBeat, replay = false) {
     artifact.replaceChildren(eyebrow,heading,text);
   }
   if (shot) {
-    const forward = (oldPage === page && beat === oldBeat + 1) ||
+    const forward = (oldPage === page && (beat === oldBeat + 1 || (page===5 && beat===4 && oldBeat===1))) ||
       (page === oldPage + 1 && oldBeat === limits[oldPage - 1] - 1);
     showShot(shot, forward);
   }
@@ -187,12 +191,7 @@ function show(targetPage, targetBeat, replay = false) {
   next.textContent = next.disabled ? "阶段结束" : beat === limits[page - 1] - 1 ? "下一页 →" : page === 1 ? "继续 →" : "下一步 →";
 }
 
-function step(direction) {
-  const nextBeat = beat + direction;
-  if (nextBeat >= 0 && nextBeat < limits[page - 1]) show(page,nextBeat);
-  else if (direction > 0 && page < limits.length) show(page + 1,0);
-  else if (direction < 0 && page > 1) show(page - 1,limits[page - 2] - 1);
-}
+function step(direction) { groupedPlayback.move(direction); }
 async function changeFullscreen() {
   fullscreenStatus.hidden = true;
   try {
@@ -206,8 +205,11 @@ async function changeFullscreen() {
 next.onclick = () => step(1);
 back.onclick = () => step(-1);
 fullscreen.onclick = changeFullscreen;
-document.querySelector("#replay").onclick = () => show(page,0,true);
-for (const dot of dots) dot.onclick = () => show(Number(dot.dataset.goto),0);
+document.querySelector("#replay").onclick = () => groupedPlayback.start(page,groupedPlayback.first(page),true);
+for (const dot of dots) dot.onclick = () => {
+  const target=Number(dot.dataset.goto);
+  groupedPlayback.start(target,groupedPlayback.first(target));
+};
 document.addEventListener("fullscreenchange", () => {
   fullscreen.textContent = document.fullscreenElement ? "退出全屏" : "全屏";
 });
@@ -217,10 +219,11 @@ document.addEventListener("keydown", event => {
     case "arrowright": event.preventDefault(); step(1); break;
     case "arrowleft": event.preventDefault(); step(-1); break;
     case " ": if (!event.target.closest("button")) { event.preventDefault(); step(1); } break;
-    case "r": show(page,0,true); break;
+    case "r": groupedPlayback.start(page,groupedPlayback.first(page),true); break;
     case "f": void changeFullscreen(); break;
     case "h": stage.classList.toggle("clean"); break;
     case "escape": fullscreenStatus.hidden = true; break;
   }
 });
+Promise.allSettled(groupedPlayback.assets().map(img=>img.decode()));
 show(1,0);

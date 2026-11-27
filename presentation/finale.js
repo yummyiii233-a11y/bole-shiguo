@@ -29,8 +29,8 @@ const finale = (() => {
   sheet.append(filename,table);
 
   const shots = [
-    { label:"从建议书到整轮工作成果", note:"对标仍为资料不足，企业线索待核实，建议书为待复核草稿。" },
-    { label:"把原本分散的工作，连成一个闭环。" },
+    { label:"从建议书到整轮工作成果", note:"对标仍为资料不足，企业线索待核实，建议书为待复核草稿" },
+    { label:"把原本分散的工作，连成一个闭环" },
     {}, {}, {}, {},
     {}, {}, {}
   ].map(shot => ({image:"p3-portfolio",...shot}));

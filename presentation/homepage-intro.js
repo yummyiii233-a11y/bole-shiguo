@@ -20,7 +20,7 @@
     clearTimeout(finishTimer);
     intro.inert = true;
     footer.inert = false;
-    show(1,0,true);
+    groupedPlayback.start(1,groupedPlayback.first(1),true);
     if (reduced.matches) intro.hidden = true;
     else intro.animate([{opacity:1},{opacity:0}],{duration:550,fill:"forwards"})
       .finished.then(() => { intro.hidden = true; });
