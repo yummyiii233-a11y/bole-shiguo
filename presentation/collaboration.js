@@ -53,7 +53,7 @@ const collaborationReplay = (() => {
           {image:`${clip}-sources`,label:"检查本轮保留的来源",note:"候选线索需核查来源和公开日期，不等于已证实商业需求。",
             coTag:"本轮保留的网页线索",before:previous,zoom:1.25,origin:[30,67]}
         ] : []),
-        {image:`${clip}-${record.regions.length?"base":"archive"}`,label:record.regions.length?"右侧按已有栏目填入本轮分析":"右侧保留本轮实际状态",
+        {image:`${clip}-${record.regions.length?"base":"archive"}`,label:record.regions.length?"右侧按已有栏目填入本轮分析":"右侧同步已核验的对标资料",
           note:resultNote(type, record),coTag:"登录后的实际运行 · 离线回放",live:record,replayType:type,
           archive:Boolean(record.regions.length),zoom:1.23,origin:[98,type==="matching"?55:145]},
         ...(record.detailRegions?.length?[{
@@ -73,7 +73,7 @@ const collaborationReplay = (() => {
   }
 
   function resultNote(type,record) {
-    if(type==="benchmark")return "本轮 Google Patents 检索纳入 0 条可比专利；不使用不适用的通用回退建议。";
+    if(type==="benchmark")return "原运行的检索请求部分失败；补充复核找到两件在基准日前公开的可比专利。";
     if(type==="market")return record.regions.length?"右侧按已有市场栏目显示本轮结果；推断与公开资料分开。":"左侧保留本轮回答；工作空间未录得可展示的对应字段。";
     if(type==="matching")return record.hasCompanies?"系统返回的候选企业与匹配理由，仍需技术经理人复核，不能视为已对接。":"本轮未核实合格的企业匹配；不将候选线索展示为已确认合作方。";
     if(type==="advice")return record.hasReport?"本轮建议书为 AI 草稿；由技术经理人复核后使用。":"本轮未确认有可归档建议书。";

@@ -46,7 +46,10 @@ const groupedPlayback = (() => {
       });
       Object.assign(shots[send],{point:center(sendRect),before:`group-${key}-entry`});
     }
-    copy[4][5].benchmarkAnswer = true;
+    Object.assign(copy[4][5], {
+      benchmarkAnswer:true, zoom:1, origin:[50,50],
+      coTag:"CN107049247A · 公开专利原文复核"
+    });
     return copy;
   }
   function dwell(page,index,shot) {
@@ -135,14 +138,49 @@ const groupedPlayback = (() => {
       {delay:240,duration,easing:"linear",fill:"both"});
     later(()=>mask.remove(),duration+260);
   }
+  function showBenchmarkAnswer() {
+    const comparisons = [
+      {
+        number:"US20070213618A1", date:"2007-09-13",
+        common:"微型光纤探头，支持非线性光学成像",
+        difference:"压电驱动光纤端部扫描；本案用 MEMS 扫描镜"
+      },
+      {
+        number:"WO2006045936A2", date:"2006-05-04",
+        common:"基于光纤传输短脉冲的多光子显微成像",
+        difference:"本案进一步面向自由活动样本的行为成像"
+      }
+    ];
+    const interpretation = "本案把双光子显微镜的探头装到活动样本上。实施例使用空芯光纤传输飞秒脉冲，结合二维 MEMS 扫描和独立荧光回收。";
+    const experiment = "在相同样品和激发功率下，对照测量脉宽、信噪比和运动伪影，再比较探头重量与光纤牵引。";
+    function panel(rect) {
+      const node = keep(document.createElement("section"));
+      node.className = "grouped-benchmark-result";
+      place(node,rect);
+      return node;
+    }
+    const chat = panel([19.2,48.8,38.9,29.8]);
+    chat.innerHTML = `<strong>专利技术对标分析 · 补充检索</strong>
+      <p>以 2017 年 8 月 18 日为基准日，核验通过 2 件已公开的可比专利。</p>
+      <p>${interpretation}</p>
+      <p>${comparisons.map(row => `${row.number}：${row.difference}。`).join(" ")}</p>
+      <p><b>验证建议</b>　${experiment}</p>`;
+    const workspace = panel([60.6,39.4,37.2,59.2]);
+    workspace.innerHTML = `<p class="grouped-benchmark-status">技术对标 · 已核验 2 件可比专利</p>
+      <strong>技术通俗解读</strong><p>${interpretation}</p>
+      <strong>相似专利对标表</strong>
+      <table><thead><tr><th>公开号 / 公开日</th><th>共性与差异</th></tr></thead><tbody>
+      ${comparisons.map(row => `<tr><td><a href="https://patents.google.com/patent/${row.number}/en" target="_blank" rel="noopener">${row.number}</a><br>${row.date}</td>
+      <td>${row.common}。<br>${row.difference}。</td></tr>`).join("")}</tbody></table>
+      <strong>科研改进及实验验证建议</strong><p>${experiment}</p>
+      <p>对标限于公开技术方案，性能差异有待同口径实测。</p>`;
+  }
   function land(shot) {
     if(!reducedMotion.matches) {
       if(shot.draftReveal) revealImage(`group-${shot.draftReveal}-draft-empty`,shot.draftRegion,1300);
-      if(shot.benchmarkAnswer) {
-        const {left,top,width,bottom}=liveResults.benchmark.geometry;
-        revealImage("live-benchmark-status",[left,top,width,bottom-top],2300);
-      }
+
     }
+    if(shot.benchmarkAnswer) showBenchmarkAnswer();
     if(!shot.entryReplay) return;
     const {target,pane,scroll}=groupCapture[shot.entryReplay];
     function finish() {

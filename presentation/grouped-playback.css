@@ -11,3 +11,17 @@
 }
 /* Use the full responsive product window for the recorded click/draft beats. */
 .stage.grouped-entry .device { top: 19%; left: 14%; width: 72%; height: 73%; }
+
+.grouped-benchmark-result {
+  position:absolute; z-index:6; background:#f7f6f2; color:#292622;
+  padding:.4cqw; box-sizing:border-box; overflow:auto;
+  font-size:.82cqw; line-height:1.42; text-align:left;
+}
+.grouped-benchmark-result p { margin:.24em 0 .55em; }
+.grouped-benchmark-result strong { font-size:1.12em; }
+.grouped-benchmark-result .grouped-benchmark-status { color:#834522; font-weight:700; }
+.grouped-benchmark-result table { width:100%; border-collapse:collapse; margin:.3em 0 .55em; }
+.grouped-benchmark-result th, .grouped-benchmark-result td {
+  border-bottom:1px solid #ddd5ca; padding:.32em; vertical-align:top;
+}
+.grouped-benchmark-result a { color:#834522; }
