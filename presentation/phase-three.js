@@ -36,7 +36,7 @@ const phaseThree = (() => {
       {image:"filing-record", side:["technical"], label:"用一句话讲清楚技术解决了什么", note:"左侧原建档会话为实录；解读提炼自实际建档记录和扩充版 Excel。", historic:history, ...zoomLeft},
       {image:"p3-technology", label:"打开真实的技术对标入口", note:"实际按钮：开展技术对标；当前尚无已通过核验的对标专利。", ...zoomRight},
       {image:"p3-benchmark-draft", label:"小伯乐预填对标任务：相似专利、原文依据、差异与验证建议",
-        note:"老师确认后发送；没有已保存的高校甲对标检索结果。", point:thirdPoints["benchmark-task"], historic:pending, ...zoomLeft},
+        note:"老师确认后发送；没有已保存的北大对标检索结果。", point:thirdPoints["benchmark-task"], historic:pending, ...zoomLeft},
       {image:"p3-technology", side:["benchmarkGap"], label:"不仅理解技术，更帮助技术走向应用。",
         note:"对标表、科研改进建议及正式对标报告均等待本案真实结果。", ...zoomRight}
     ],
@@ -50,7 +50,7 @@ const phaseThree = (() => {
       {image:"p3-market", side:["marketGap"], label:"不只是找到企业，更是找到合作依据。",
         note:"本案没有经过核验的企业候选，因此不展示企业名称或重点标记。", ...zoomRight},
       {image:"p3-decision", label:"进入「转化决策」，保留已经知道的事实和未确认的缺口",
-        note:"仍是示例高校甲 CN107049247A。", point:thirdPoints["decision-tab"], ...zoomRight}
+        note:"仍是北京大学 CN107049247A。", point:thirdPoints["decision-tab"], ...zoomRight}
     ],
     [
       {image:"p3-decision", board:"inputs", label:"把已核实的资料与尚待补证的环节放到一起",
@@ -74,11 +74,11 @@ const phaseThree = (() => {
         note:"点模板预填聊天任务；归档以已有真实结果为准。", point:thirdPoints["report-generate"], zoom:1.13,origin:[94,15]},
       {image:"p3-templates", board:"templates", label:"四类报告模板，对应不同阶段的工作成果",
         note:"来自当前产品配置；这些是模板，不是本案已生成的四份报告。"},
-      {image:"p3-archived", label:"打开一份真实归档：示例高校乙企业匹配报告",
+      {image:"p3-archived", label:"打开一份真实归档：华南理工大学企业匹配报告",
         note:"CN100496927C · 独立案例 · 本轮未命中可引用企业需求。", point:thirdPoints["archive-open"], historic:history, zoom:1.12,origin:[53,21]},
       {image:"p3-other-chat", label:"华南理工：报告、聊天与专利独立保存",
-        note:"CN100496927C 的已有分析与对话，不挂到示例高校甲专利。", historic:history},
-      {image:"p3-back-to-pku", label:"切回示例高校甲，恢复它自己的建档会话",
+        note:"CN100496927C 的已有分析与对话，不挂到北京大学专利。", historic:history},
+      {image:"p3-back-to-pku", label:"切回北京大学，恢复它自己的建档会话",
         note:"CN107049247A · 左侧是独立建档记录，右侧是该专利的结构化信息。", point:thirdPoints["switch-patent"], historic:history},
       {image:"p3-portfolio", label:"从一次AI回答，到长期积累的成果转化资产。",
         note:"回到成果管理，多项专利在同一工作台内独立保存。", point:thirdPoints["asset-nav"]}

@@ -41,7 +41,7 @@ const collaborationReplay = (() => {
     }[type];
     return [
       {image:entryImage, label:`右侧任务入口 · ${name}`,
-        note:"高校甲案例 · 进入本轮任务前", point, ...right},
+        note:"北大案例 · 进入本轮任务前", point, ...right},
       {image:`co-${type}-draft`, label:`点击「${name}」，左侧自动预填任务`,
         note:completed?"真实指令 · CN107049247A · 确认后发送；本次补充了历史回溯基准日。":"真实指令 · CN107049247A · 确认后手动发送；当前只有预填实录。",
         point:clickPoints[`${type}Task`], coTag:"真实界面回放 · 待发送", ...left},
@@ -66,7 +66,7 @@ const collaborationReplay = (() => {
         ...(type==="market"||type==="advice"?[{image:`${clip}-archive`,label:"完整双栏 · 复核本轮工作成果",
           note:resultNote(type, record),coTag:"登录后的实际运行 · 离线回放"}]:[]),
         ...(record.adviceAsset?[{image:"live-advice-report",label:"打开已生成的《成果转化建议书》",
-          note:"高校甲案例 · AI 生成的建议草稿，供技术经理人复核。",
+          note:"北大案例 · AI 生成的建议草稿，供技术经理人复核。",
           coTag:"真实生成记录",zoom:1.37,origin:[98,27]}]:[])
       ])
     ];
@@ -95,7 +95,7 @@ const collaborationReplay = (() => {
       note:"已保存建档结果的分步回放；名称、编号、申请人、技术领域和摘要均取自本案。",coTag:history,
       archive:true,zoom:1.24,origin:[99,152]},
     {image:"co-archive-full",label:"左侧协作过程，右侧结构化工作成果",
-      note:"示例高校甲 CN107049247A · 同一项专利的建档会话与成果档案。",coTag:history}
+      note:"北京大学 CN107049247A · 同一项专利的建档会话与成果档案。",coTag:history}
   ];
   shots[3] = [
     {image:"p3-technology",label:"专业评价体系 × AI智能分析",note:"三大价值维度共 27 项三级指标。",side:["summary"],point:points["benchmark-tab"],...right},
@@ -118,7 +118,7 @@ const collaborationReplay = (() => {
     ...task("advice"),
   ];
   shots[7] = liveResults.advice?.hasReport ? [
-    {image:"live-pku-reports",label:"高校甲案例的分析报告归档在同一专利下",note:"报告中心 · CN107049247A · 回溯分析草稿待复核。",
+    {image:"live-pku-reports",label:"北大案例的分析报告归档在同一专利下",note:"报告中心 · CN107049247A · 回溯分析草稿待复核。",
       point:thirdPoints["report-nav"]},
     original[7][7]
   ] : [original[7][1],original[7][3],original[7][4],original[7][6],original[7][7]];

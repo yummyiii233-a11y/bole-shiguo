@@ -18,7 +18,7 @@ const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 const journey = [
   { label: "公开专利文本 · CN107049247A", note: "来源：发明专利申请公布文本首页" },
   { label: "从文献中提取信息，建立结构化档案", note: "建档事实取自项目已有资料与小伯乐保存的记录" },
-  { label: "01　成果建档", note: "已建档 · 示例高校甲 · 分析基准日 2017年8月18日" },
+  { label: "01　成果建档", note: "已建档 · 北京大学 · 分析基准日 2017年8月18日" },
   { label: "02　价值分析与技术对标", artifact: ["分析任务", "价值证据与技术对标", "组织技术、法律、经济三维证据，明确对标对象和待核实事项。"] },
   { label: "03　市场与企业匹配", artifact: ["匹配任务", "核验应用与需求", "整理目标场景、需求来源和潜在合作线索，供技术经理人核验。"] },
   { label: "04　转化决策", artifact: ["决策任务", "比较可选转化方式", "归拢适用条件、证据缺口和下一步行动，由技术经理人判断。"] },
@@ -57,10 +57,10 @@ function showFrame(name) {
   entering.alt = {
     workbench: "真实工作台：在管 3 件、待分析 3 件、分析中 0 件、已完成分析 0 件",
     assets: "真实成果管理：显示本地专利名称、编号、技术领域、当前阶段和进度",
-    collaboration: "真实双栏协作：左侧为高校甲案例建档对话，右侧为专利工作空间",
+    collaboration: "真实双栏协作：左侧为北大案例建档对话，右侧为专利工作空间",
     benchmark: "真实专利工作空间：四个工作阶段、价值维度及评估和对标按钮",
     reports: "真实报告中心：报告列表、所属专利和报告类型",
-    report: "已保存的示例高校乙 CN100496927C 企业匹配报告"
+    report: "已保存的华南理工大学 CN100496927C 企业匹配报告"
   }[name] ?? stageShots.flat().find(shot => shot.image === name)?.label ?? "";
   entering.removeAttribute("aria-hidden");
   entering.style.zIndex = "2";
